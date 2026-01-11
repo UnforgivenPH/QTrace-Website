@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 09, 2026 at 09:23 AM
+-- Generation Time: Jan 11, 2026 at 01:55 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -78,20 +78,6 @@ CREATE TABLE `locations_table` (
   `district_number` int(11) DEFAULT NULL,
   `latitude` decimal(9,6) DEFAULT NULL,
   `longitude` decimal(9,6) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `map_table`
---
-
-CREATE TABLE `map_table` (
-  `Map_ID` int(11) NOT NULL,
-  `Project_ID` int(11) NOT NULL,
-  `location_ID` int(11) NOT NULL,
-  `Budget` double NOT NULL,
-  `category_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -254,15 +240,6 @@ ALTER TABLE `locations_table`
   ADD PRIMARY KEY (`location_id`);
 
 --
--- Indexes for table `map_table`
---
-ALTER TABLE `map_table`
-  ADD PRIMARY KEY (`Map_ID`),
-  ADD KEY `fk_map_projects` (`Project_ID`),
-  ADD KEY `fk_location_map` (`location_ID`),
-  ADD KEY `fk_map_category` (`category_id`);
-
---
 -- Indexes for table `milestone_phases`
 --
 ALTER TABLE `milestone_phases`
@@ -354,12 +331,6 @@ ALTER TABLE `locations_table`
   MODIFY `location_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `map_table`
---
-ALTER TABLE `map_table`
-  MODIFY `Map_ID` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `milestone_phases`
 --
 ALTER TABLE `milestone_phases`
@@ -429,14 +400,6 @@ ALTER TABLE `contractor_documents_table`
 ALTER TABLE `contractor_expertise_table`
   ADD CONSTRAINT `fk_document_contractor` FOREIGN KEY (`Contractor_Id`) REFERENCES `contractor_table` (`Contractor_Id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `fk_expertise_contractor` FOREIGN KEY (`Contractor_Id`) REFERENCES `contractor_table` (`Contractor_Id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Constraints for table `map_table`
---
-ALTER TABLE `map_table`
-  ADD CONSTRAINT `fk_map_category` FOREIGN KEY (`category_id`) REFERENCES `project_categories` (`category_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `map_table_ibfk_1` FOREIGN KEY (`Project_ID`) REFERENCES `projects_table` (`Project_ID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `map_table_ibfk_2` FOREIGN KEY (`location_ID`) REFERENCES `locations_table` (`location_id`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `projectmilestone_table`
