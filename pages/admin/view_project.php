@@ -85,9 +85,9 @@
                             <div class="card-body py-5 px-4">
                                 <div class="row mb-3 d-flex flex-column flex-md-row align-items-start">
                                     <div class="col-md-3 d-flex justify-content-start justify-content-md-end mb-2 mb-md-0 order-1 order-md-2">
-                                        <a href="/QTrace-Website/pages/admin/edit_project.php?id=<?= $project_id ?>" class="btn btn-dark px-3 py-2 text-nowrap">Edit Project</a>
+                                        <a href="/QTrace-Website/pages/admin/edit_project.php?id=<?= $project_id ?>" class="btn btn-blue-primary btn-dark px-3 py-2 text-nowrap">Edit Project</a>
                                     </div>
-                                        <div class="col-md-9 order-2 order-md-1">
+                                    <div class="col-md-9 order-2 order-md-1">
                                         <h3 class="fw-bold mb-3">
                                             <?php echo htmlspecialchars($project['ProjectDetails_Title']); ?>
                                         </h3>
@@ -135,7 +135,7 @@
                             </div>
                         </div>
 
-                        <div class="card-header bg-white border-0 p-2">
+                        <div class="card-header card bg-white border-0 p-2">
                             <ul class="nav nav-tabs details px-4 pt-2 pb-2 gap-3 justify-content-md-start justify-content-center" id="projectTabs">
                                 <li class="nav-item">
                                     <button class="nav-link active text-black-50 fw-medium d-flex align-items-center px-2 px-md-3" data-bs-toggle="tab" data-bs-target="#overview">
@@ -165,7 +165,6 @@
                                     </button>
                                 </li>
                             </ul>
-                        </div>
 
                             <div class="card-body p-4 tab-content">
                                 <div class="tab-pane fade show active" id="overview">
