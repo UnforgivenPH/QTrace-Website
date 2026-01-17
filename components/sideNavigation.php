@@ -140,7 +140,7 @@
             </a>
         </li>
         <li class="nav-item">
-            <a href="/QTrace-Website/project_reports" class="nav-link text-black <?php echo ($page_name == 'reports') ? 'active' : ''; ?>">
+            <a href="/QTrace-Website/project-reports" class="nav-link text-black <?php echo ($page_name == 'project-reports') ? 'active' : ''; ?>">
                 <i class="bi bi-card-text"></i> Reports
             </a>
         </li>

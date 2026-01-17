@@ -1,5 +1,5 @@
 <?php 
-    $page_name = 'project_reports'; 
+    $page_name = 'project-reports'; 
     include('../../database/connection/security.php');    
 ?>
 
