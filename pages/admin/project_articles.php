@@ -15,7 +15,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Article compilation per project in an editorial card view.">
+        <meta name="description" content="Article compilation for Quezon City projects.">
         <meta name="author" content="ai-Deib">
         <title>QTrace — Articles</title>
         <!-- Bootstrap & Icons -->
@@ -56,17 +56,21 @@
 
                 <main class="main-view">
                     <div class="container-fluid">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div>
-                                <div class="text-uppercase small text-muted fw-bold">Articles</div>
-                                <h1 class="h4 fw-bold m-0">Article Compilation by Project</h1>
-                                <p class="text-muted m-0">Editorial card view inspired by Inquirer.net</p>
-                                <nav class="mt-2" aria-label="breadcrumb">
-                                    <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a href="/QTrace-Website/dashboard">Admin</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Articles</li>
-                                    </ol>
-                                </nav>
+                        <nav aria-label="breadcrumb">
+                            <!-- Breadcrumb -->
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a href="/QTrace-Website/dashboard">Home</a>
+                                </li>
+                                <li class="breadcrumb-item active">Articles</li>
+                            </ol>
+                        </nav>
+
+                        <div class="row mb-2">
+                            <div class="col">
+                                <!-- Page Header -->
+                                <h2 class="fw-bold">Articles</h2>
+                                <p>Article, news, and updates compilation of Quezon City projects</p>
                             </div>
                         </div>
 
