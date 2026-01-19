@@ -69,6 +69,7 @@
                 <main class="main-view">
                     <div class="container-fluid px-4">
                         <nav aria-label="breadcrumb">
+                            <!-- Breadcrumb -->
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
                                     <a href="/QTrace-Website/dashboard">Home</a>
@@ -77,10 +78,11 @@
                             </ol>
                         </nav>
 
-                        <div class="row mb-4">
+                        <div class="row mb-2">
                             <div class="col">
+                                <!-- Page Header -->
                                 <h2 class="fw-bold">Report List</h2>
-                                <p class="text-muted">Manage and view all reports in the system</p>
+                                <p>Manage and view all reports in the system</p>
                             </div>
                         </div>
 

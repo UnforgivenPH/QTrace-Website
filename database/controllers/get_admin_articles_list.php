@@ -14,12 +14,41 @@ if ($page < 1) $page = 1;
 // Calculate Offset
 $start_from = ($page - 1) * $results_per_page;
 
-// --- 3. GET TOTAL ARTICLES COUNT ---
+// --- 3. GET FEATURED ARTICLE (NEWEST) ---
+$featured_query = "
+    SELECT 
+        a.article_ID,
+        a.article_type,
+        a.article_description,
+        a.article_photo_url,
+        a.article_status,
+        a.article_created_at,
+        pt.Project_ID,
+        pd.ProjectDetails_Title,
+        pd.ProjectDetails_Barangay,
+        pd.ProjectDetails_Budget,
+        u.user_id,
+        CONCAT(u.user_FirstName, ' ', u.user_LastName) as author_name
+    FROM articles_table a
+    INNER JOIN projects_table pt ON a.Project_ID = pt.Project_ID
+    INNER JOIN projectdetails_table pd ON pt.Project_ID = pd.Project_ID
+    LEFT JOIN user_table u ON a.user_ID = u.user_id
+    ORDER BY a.article_created_at DESC
+    LIMIT 1
+";
+
+$featured_result = $conn->query($featured_query);
+$featured_article = $featured_result ? $featured_result->fetch_assoc() : null;
+
+// --- 4. GET TOTAL ARTICLES COUNT (excluding featured) ---
 $count_query = "
     SELECT COUNT(a.article_ID) as total
     FROM articles_table a
-    WHERE a.article_status IN ('Published', 'Draft')
 ";
+
+if ($featured_article) {
+    $count_query .= " WHERE a.article_ID != " . intval($featured_article['article_ID']);
+}
 
 $count_result = $conn->query($count_query);
 $count_row = $count_result->fetch_assoc();
@@ -50,8 +79,13 @@ $articles_query = "
     INNER JOIN projects_table pt ON a.Project_ID = pt.Project_ID
     INNER JOIN projectdetails_table pd ON pt.Project_ID = pd.Project_ID
     LEFT JOIN user_table u ON a.user_ID = u.user_id
-    WHERE a.article_status IN ('Published', 'Draft')
-    ORDER BY a.article_created_at DESC
+";
+
+if ($featured_article) {
+    $articles_query .= " WHERE a.article_ID != " . intval($featured_article['article_ID']);
+}
+
+$articles_query .= " ORDER BY a.article_created_at DESC
     LIMIT $start_from, $results_per_page
 ";
 

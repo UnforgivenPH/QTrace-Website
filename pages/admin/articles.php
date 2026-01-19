@@ -1,5 +1,5 @@
 <?php 
-    $page_name = 'project_articles'; 
+    $page_name = 'articles'; 
     include('../../database/connection/security.php');
     require('../../database/controllers/get_admin_articles_list.php');
     
@@ -15,7 +15,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="Article compilation per project in an editorial card view.">
+        <meta name="description" content="Article compilation for Quezon City projects.">
         <meta name="author" content="ai-Deib">
         <title>QTrace — Articles</title>
         <!-- Bootstrap & Icons -->
@@ -57,6 +57,7 @@
                 <main class="main-view">
                     <div class="container-fluid">
                         <nav aria-label="breadcrumb">
+                            <!-- Breadcrumb -->
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
                                     <a href="/QTrace-Website/dashboard">Home</a>
@@ -67,6 +68,7 @@
 
                         <div class="row mb-2">
                             <div class="col">
+                                <!-- Page Header -->
                                 <h2 class="fw-bold">Articles</h2>
                                 <p>Article, news, and updates compilation of Quezon City projects</p>
                             </div>
