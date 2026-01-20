@@ -81,6 +81,7 @@
                             <table class="table table-hover align-middle mb-0">
                                 <thead class="table-light">
                                     <tr>
+                                        <th>Audit ID</th>
                                         <th>Timestamp</th>
                                         <th>Performed By</th>
                                         <th>Action</th>
@@ -97,6 +98,7 @@
                                     <?php else: ?>
                                         <?php foreach ($audit_logs as $log): ?>
                                             <tr>
+                                                <td class="fw-bold"><?php echo $log['audit_log_id']; ?></td>
                                                 <td class="small">
                                                     <?php echo date('M d, Y', strtotime($log['created_at'])); ?><br>
                                                     <span class="text-muted"><?php echo date('h:i A', strtotime($log['created_at'])); ?></span>
@@ -113,7 +115,7 @@
                                                         if($log['action'] == 'CREATE' || $log['action'] == 'ADD') $statusClass = 'bg-success';
                                                         if($log['action'] == 'DELETE' || $log['action'] == 'DEACTIVATE') $statusClass = 'bg-danger';
                                                     ?>
-                                                    <span class="badge rounded-pill <?= $statusClass ?>">
+                                                    <span class="badge <?= $statusClass ?>">
                                                         <?= htmlspecialchars($log['action']) ?>
                                                     </span>
                                                 </td>
@@ -139,11 +141,11 @@
                                 </tbody>
                             </table>
                         </div>
-                        
-                        <!-- Pagination -->
-                        <?php if (isset($pagination) && $pagination['total_pages'] > 0): ?>
-                        <div class="card-footer bg-white">
-                            <div class="d-flex justify-content-between align-items-center">
+                    </div>
+                    
+                    <!-- Pagination Section -->
+                    <?php if (isset($pagination) && $pagination['total_pages'] > 0): ?>
+                            <div class="d-flex justify-content-between align-items-center mt-4">
                                 <div>
                                     <small class="text-muted">
                                         Showing 
@@ -167,10 +169,7 @@
                                     </ul>
                                 </nav>
                             </div>
-                        </div>
                         <?php endif; ?>
-                        </div>
-                    </div>
 
                     <div class="modal fade" id="detailModal" tabindex="-1">
                         <div class="modal-dialog">

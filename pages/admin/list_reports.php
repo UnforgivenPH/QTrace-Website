@@ -160,7 +160,16 @@
                                                     <?php echo htmlspecialchars($row['FirstName'] . ' ' . $row['LastName']); ?>
                                                 </td>
                                                 <td class="text-center">
+                                                    <?php 
+                                                        $statusClass = 'bg-secondary';
+                                                        if($row['report_status'] == 'Sent' || $row['report_status'] == 'InProgress' || $row['report_status'] == 'Seen') $statusClass = 'bg-primary';
+                                                        if($row['report_status'] == 'Resolve') $statusClass = 'bg-success';
+                                                        if($row['report_status'] == 'Spam' || $row['report_status'] == 'Closed') $statusClass = 'bg-danger';
+                                                    ?>
+                                                    <span class="badge <?= $statusClass ?>">
                                                         <?php echo $row['report_status']; ?>
+                                                    </span>
+                                                        
                                                 </td>
                                                 <td class="d-none d-md-table-cell">
                                                     <span class="text-dark"><?php echo htmlspecialchars($row['report_type'] ?? 'N/A'); ?></span>

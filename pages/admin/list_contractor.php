@@ -66,121 +66,118 @@
                     
                     <!-- Filter Form -->
 
-                        <div class="card border-0 shadow-sm mb-4">
-                            <div class="card-body">
-                                <form method="GET" class="row g-3">
-                                    <div class="col-lg-6">
-                                        <label class="form-label fw-bold text-muted">Filter by Skill</label>
-                                        <input type="text" name="skill" class="form-control" placeholder="e.g. Plumbing, Electrical" value="<?= $search_skill ?>">
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <label class="form-label fw-bold text-muted">Min. Experience (Years)</label>
-                                        <input type="number" name="min_years" class="form-control" placeholder="0" min="0" value="<?= $min_years > 0 ? $min_years : '' ?>">
-                                    </div>
-                                    <div class="col-lg-2 d-flex align-items-end row g-2">
-                                        <div class="col-6">
-                                            <button class="btn bg-color-primary text-light fw-medium w-100" type="submit">Apply</button>
-                                        </div>
-                                        <div class="col-6">
-                                            <button type="button" onclick="window.location.href='?page=1'" class="btn btn-outline-secondary w-100 fw-medium">Reset</button>
-                                        </div>
-                                            
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-
-                        <!-- Engineer List Table -->
-                        <div class="card border-0 shadow-sm">
-                            <div class="table-responsive">
-                                <table class="table table-hover align-middle mb-0">
-                                    <thead class="table-light">
-                                        <tr>
-                                            <th>Company</th>
-                                            <th>Representative</th>
-                                            <th>Contact</th>
-                                            <th>Expertise</th>
-                                            <th>Exp.</th>
-                                            <th>Actions</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <?php if ($result->num_rows > 0): ?>
-                                            <?php while($row = $result->fetch_assoc()): ?>
-                                            <tr>
-                                                <td>
-                                                    <div class="d-flex align-items-center">
-                                                        <?php if($row['Contractor_Logo_Path']): ?>
-                                                            <img src="<?= $row['Contractor_Logo_Path'] ?>" class="rounded-circle me-2" width="40" height="40" style="object-fit: cover;">
-                                                        <?php else: ?>
-                                                            <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width:40px; height:40px;">
-                                                                <?= substr($row['Contractor_Name'], 0, 1) ?>
-                                                            </div>
-                                                        <?php endif; ?>
-                                                        <span class="fw-bold"><?= htmlspecialchars($row['Contractor_Name']) ?></span>
-                                                    </div>
-                                                </td>
-                                                <td><?= htmlspecialchars($row['Owner_Name']) ?></td>
-                                                <td>
-                                                    <small class="d-block"><?= htmlspecialchars($row['Company_Email_Address']) ?></small>
-                                                    <small class="text-muted"><?= htmlspecialchars($row['Contact_Number']) ?></small>
-                                                </td>
-                                                <td>
-                                                    <?php 
-                                                    $skills = explode(', ', $row['skills']);
-                                                    foreach($skills as $skill) {
-                                                        echo '<span class="badge bg-info text-dark me-1">' . htmlspecialchars($skill) . '</span>';
-                                                    }
-                                                    ?>
-                                                </td>
-                                                <td><span class="badge bg-secondary"><?= $row['Years_Of_Experience'] ?> yrs</span></td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <a href="/QTrace-Website/view-contractor?id=<?= $row['Contractor_Id'] ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></a>
-                                                        <button class="btn btn-sm" onclick="confirmDisable(<?= $row['Contractor_Id'] ?>)" title="Disable" style="background-color: transparent; border: 1px solid #c2180c; color: #c2180c;" onmouseover="this.style.backgroundColor='#871810'; this.style.borderColor='#871810'; this.style.color='#ffffff'; this.querySelector('i').style.color='#ffffff';" onmouseout="this.style.backgroundColor='transparent'; this.style.borderColor='#c2180c'; this.style.color='#c2180c'; this.querySelector('i').style.color='#c2180c';"><i class="bi bi-x-circle" style="color:#c2180c;"></i></button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <?php endwhile; ?>
-                                        <?php else: ?>
-                                            <tr>
-                                                <td colspan="6" class="text-center py-5 text-muted">No contractors found matching your criteria.</td>
-                                            </tr>
-                                        <?php endif; ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                            
-                            <!-- Pagination -->
-                            <?php if (isset($pagination) && $pagination['total_pages'] > 0): ?>
-                            <div class="card-footer bg-white">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div>
-                                        <small class="text-muted">
-                                            Showing 
-                                            <span id="recordStart"><?php echo (($pagination['current_page'] - 1) * $pagination['per_page']) + 1; ?></span> 
-                                            to 
-                                            <span id="recordEnd"><?php echo min($pagination['current_page'] * $pagination['per_page'], $pagination['total_records']); ?></span> 
-                                            of 
-                                            <span id="totalRecords"><?php echo $pagination['total_records']; ?></span> 
-                                            contractors
-                                        </small>
-                                    </div>
-                                    <nav>
-                                        <ul class="pagination mb-0">
-                                            <li class="page-item <?php echo $pagination['current_page'] === 1 ? 'disabled' : ''; ?>">
-                                                <a class="page-link" href="?page=<?php echo max(1, $pagination['current_page'] - 1); ?>&skill=<?php echo urlencode($_GET['skill'] ?? ''); ?>&min_years=<?php echo urlencode($_GET['min_years'] ?? ''); ?>">Previous</a>
-                                            </li>
-                                            <li class="page-item"><span class="page-link"><?php echo $pagination['current_page']; ?> of <?php echo $pagination['total_pages']; ?></span></li>
-                                            <li class="page-item <?php echo $pagination['current_page'] === $pagination['total_pages'] ? 'disabled' : ''; ?>">
-                                                <a class="page-link" href="?page=<?php echo min($pagination['total_pages'], $pagination['current_page'] + 1); ?>&skill=<?php echo urlencode($_GET['skill'] ?? ''); ?>&min_years=<?php echo urlencode($_GET['min_years'] ?? ''); ?>">Next</a>
-                                            </li>
-                                        </ul>
-                                    </nav>
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-body">
+                            <form method="GET" class="row g-3">
+                                <div class="col-lg-6">
+                                    <label class="form-label fw-bold text-muted">Filter by Skill</label>
+                                    <input type="text" name="skill" class="form-control" placeholder="e.g. Plumbing, Electrical" value="<?= $search_skill ?>">
                                 </div>
-                            </div>
-                            <?php endif; ?>
+                                <div class="col-lg-4">
+                                    <label class="form-label fw-bold text-muted">Min. Experience (Years)</label>
+                                    <input type="number" name="min_years" class="form-control" placeholder="0" min="0" value="<?= $min_years > 0 ? $min_years : '' ?>">
+                                </div>
+                                <div class="col-lg-2 d-flex align-items-end row g-2">
+                                    <div class="col-6">
+                                        <button class="btn bg-color-primary text-light fw-medium w-100" type="submit">Apply</button>
+                                    </div>
+                                    <div class="col-6">
+                                        <button type="button" onclick="window.location.href='?page=1'" class="btn btn-outline-secondary w-100 fw-medium">Reset</button>
+                                    </div>
+                                        
+                                </div>
+                            </form>
                         </div>
+                    </div>
+
+                    <!-- Engineer List Table -->
+                    <div class="card border-0 shadow-sm">
+                        <div class="table-responsive">
+                            <table class="table table-hover align-middle mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th>Company</th>
+                                        <th>Representative</th>
+                                        <th>Email</th>
+                                        <th>Expertise</th>
+                                        <th>Exp.</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php if ($result->num_rows > 0): ?>
+                                        <?php while($row = $result->fetch_assoc()): ?>
+                                        <tr>
+                                            <td>
+                                                <div class="d-flex align-items-center">
+                                                    <?php if($row['Contractor_Logo_Path']): ?>
+                                                        <img src="<?= $row['Contractor_Logo_Path'] ?>" class="rounded-circle me-2" width="40" height="40" style="object-fit: cover;">
+                                                    <?php else: ?>
+                                                        <div class="bg-secondary text-white rounded-circle d-flex align-items-center justify-content-center me-2" style="width:40px; height:40px;">
+                                                            <?= substr($row['Contractor_Name'], 0, 1) ?>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                    <span class="fw-bold"><?= htmlspecialchars($row['Contractor_Name']) ?></span>
+                                                </div>
+                                            </td>
+                                            <td><?= htmlspecialchars($row['Owner_Name']) ?></td>
+                                            <td>
+                                                <small class="d-block"><?= htmlspecialchars($row['Company_Email_Address']) ?></small>
+                                            </td>
+                                            <td style="max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                                <?php 
+                                                $skills = explode(', ', $row['skills']);
+                                                foreach($skills as $skill) {
+                                                    echo '<span class="badge bg-info text-dark me-1">' . htmlspecialchars($skill) . '</span>';
+                                                }
+                                                ?>
+                                            </td>
+                                            <td><span class="badge bg-secondary"><?= $row['Years_Of_Experience'] ?> yrs</span></td>
+                                            <td>
+                                                <div class="btn-group">
+                                                    <a href="/QTrace-Website/view-contractor?id=<?= $row['Contractor_Id'] ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></a>
+                                                    <button class="btn btn-sm" onclick="confirmDisable(<?= $row['Contractor_Id'] ?>)" title="Disable" style="background-color: transparent; border: 1px solid #c2180c; color: #c2180c;" onmouseover="this.style.backgroundColor='#871810'; this.style.borderColor='#871810'; this.style.color='#ffffff'; this.querySelector('i').style.color='#ffffff';" onmouseout="this.style.backgroundColor='transparent'; this.style.borderColor='#c2180c'; this.style.color='#c2180c'; this.querySelector('i').style.color='#c2180c';"><i class="bi bi-x-circle" style="color:#c2180c;"></i></button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <?php endwhile; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="6" class="text-center py-5 text-muted">No contractors found matching your criteria.</td>
+                                        </tr>
+                                    <?php endif; ?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Pagination -->
+                    <?php if (isset($pagination) && $pagination['total_pages'] > 0): ?>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <div>
+                                <small class="text-muted">
+                                    Showing 
+                                    <span id="recordStart"><?php echo (($pagination['current_page'] - 1) * $pagination['per_page']) + 1; ?></span> 
+                                    to 
+                                    <span id="recordEnd"><?php echo min($pagination['current_page'] * $pagination['per_page'], $pagination['total_records']); ?></span> 
+                                    of 
+                                    <span id="totalRecords"><?php echo $pagination['total_records']; ?></span> 
+                                    contractors
+                                </small>
+                            </div>
+                            <nav>
+                                <ul class="pagination mb-0">
+                                    <li class="page-item <?php echo $pagination['current_page'] === 1 ? 'disabled' : ''; ?>">
+                                        <a class="page-link" href="?page=<?php echo max(1, $pagination['current_page'] - 1); ?>&skill=<?php echo urlencode($_GET['skill'] ?? ''); ?>&min_years=<?php echo urlencode($_GET['min_years'] ?? ''); ?>">Previous</a>
+                                    </li>
+                                    <li class="page-item"><span class="page-link"><?php echo $pagination['current_page']; ?> of <?php echo $pagination['total_pages']; ?></span></li>
+                                    <li class="page-item <?php echo $pagination['current_page'] === $pagination['total_pages'] ? 'disabled' : ''; ?>">
+                                        <a class="page-link" href="?page=<?php echo min($pagination['total_pages'], $pagination['current_page'] + 1); ?>&skill=<?php echo urlencode($_GET['skill'] ?? ''); ?>&min_years=<?php echo urlencode($_GET['min_years'] ?? ''); ?>">Next</a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </main>
         </div>

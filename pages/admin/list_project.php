@@ -89,6 +89,7 @@
                                 <table class="table table-hover align-middle mb-0">
                                     <thead class="table-light">
                                         <tr>
+                                            <th>Project ID</th>
                                             <th style="width: 35%;">Project Title</th>
                                             <th>Status</th>
                                             <th>Budget</th>
@@ -101,11 +102,9 @@
                                         <?php if ($result && $result->num_rows > 0): ?>
                                             <?php while($row = $result->fetch_assoc()): ?>
                                             <tr>
+                                                <td class="fw-bold">PRJ-<?= str_pad($row['Project_ID'], 3, '0', STR_PAD_LEFT) ?></td>
                                                 <td>
                                                     <div class="fw-bold text-dark"><?= htmlspecialchars($row['ProjectDetails_Title']) ?></div>
-                                                    <small class="text-muted d-block text-truncate" style="max-width: 300px;">
-                                                        <?= htmlspecialchars($row['ProjectDetails_Description']) ?>
-                                                    </small>
                                                 </td>
 
                                                 <td>
@@ -116,7 +115,7 @@
                                                         if($row['Project_Status'] == 'Delayed') $statusClass = 'bg-danger';
                                                         if($row['Project_Status'] == 'Planning') $statusClass = 'bg-info text-dark';
                                                     ?>
-                                                    <span class="badge rounded-pill <?= $statusClass ?>">
+                                                    <span class="badge <?= $statusClass ?>">
                                                         <?= htmlspecialchars($row['Project_Status']) ?>
                                                     </span>
                                                 </td>

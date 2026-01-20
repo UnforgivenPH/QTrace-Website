@@ -39,7 +39,7 @@
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="/QTrace-Website/dashboard">Home</a></li>
-                            <li class="breadcrumb-item"><a href="/QTrace-Website/pages/admin/reports.php">Report List</a></li>
+                            <li class="breadcrumb-item"><a href="/QTrace-Website/reports">Report List</a></li>
                             <li class="breadcrumb-item active">Report Details</li>
                         </ol>
                     </nav>
@@ -159,6 +159,8 @@
                                                         <option value="Seen" <?= $report['report_status'] == 'Seen' ? 'selected' : '' ?>>Seen</option>
                                                         <option value="In Progress" <?= $report['report_status'] == 'In Progress' ? 'selected' : '' ?>>In Progress</option>
                                                         <option value="Resolved" <?= $report['report_status'] == 'Resolved' ? 'selected' : '' ?>>Resolved</option>
+                                                        <option value="Spam" <?= $report['report_status'] == 'Spam' ? 'selected' : '' ?>>Spam</option>
+                                                        <option value="Closed" <?= $report['report_status'] == 'Closed' ? 'selected' : '' ?>>Closed</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-2">
