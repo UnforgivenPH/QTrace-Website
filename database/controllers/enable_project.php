@@ -15,7 +15,7 @@ if ($project_id <= 0) {
 }
 
 // 1. FETCH OLD DATA FIRST
-// Captures the current status before changing it to 'inactive'
+// Captures the current status before changing it to 'active'
 $stmtGet = $conn->prepare("SELECT Project_Status FROM projects_table WHERE Project_ID = ?");
 $stmtGet->bind_param("i", $project_id);
 $stmtGet->execute();
@@ -27,7 +27,7 @@ if (!$oldData) {
 }
 
 // 2. PERFORM THE UPDATE
-$stmt = $conn->prepare("UPDATE projects_table SET Project_Status = 'inactive' WHERE Project_ID = ?");
+$stmt = $conn->prepare("UPDATE projects_table SET Project_Status = 'active' WHERE Project_ID = ?");
 $stmt->bind_param("i", $project_id);
 $success = $stmt->execute();
 
@@ -37,15 +37,15 @@ if ($success) {
 
     $audit->log(
         $admin_id, 
-        'DEACTIVATE',      // Action name
+        'ACTIVATE',      // Action name
         'projects',        // Resource type (matches your list_audit columns)
         $project_id,       // Specific ID of the project
-        $oldData,          // Old values: {"Project_Status": "active"}
-        ['Project_Status' => 'inactive'] // New values
+        $oldData,          // Old values: {"Project_Status": "inactive"}
+        ['Project_Status' => 'active'] // New values
     );
 }
 
-$msg = urlencode("Project disabled successfully.");
-header("Location: /QTrace-Website/project-list?status=danger&msg=$msg");
+$msg = urlencode("Project enabled successfully.");
+header("Location: /QTrace-Website/project-list?status=success&msg=$msg");
 exit();
 ?>

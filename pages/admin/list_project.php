@@ -19,6 +19,16 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" />
         <link rel="stylesheet" href="/QTrace-Website/assets/css/styles.css" />
     </head>
+    <style>
+        .pagination .page-link {
+                color: #003366;
+            }
+        .pagination a.page-link:hover {
+                background-color: #003366;
+                color: white;
+                border-color: #003366;
+            }
+    </style>
     <body>
         <div class="app-container">
             <?php include('../../components/header.php'); ?>
@@ -32,7 +42,7 @@
                                 <!-- Breadcrumb -->
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item">
-                                    <a href="/QTrace-Website/dashboard">Home</a>
+                                    <a href="/QTrace-Website/dashboard">Dashboard</a>
                                     </li>
                                     <li class="breadcrumb-item active">Project List</li>
                                 </ol>
@@ -131,9 +141,15 @@
                                                             <a href="/QTrace-Website/view-project?id=<?= $row['Project_ID'] ?>" class="btn btn-sm btn-outline-primary" title="View Project">
                                                                 <i class="bi bi-eye"></i>
                                                             </a>
+                                                            <?php
+                                                                if($row['Project_Status'] != 'inactive'){
+                                                            ?>
                                                             <button class="btn btn-sm" onclick="confirmDisable(<?= $row['Project_ID'] ?>)" title="Disable Project" style="background-color: transparent; border: 1px solid #c2180c; color: #c2180c;" onmouseover="this.style.backgroundColor='#871810'; this.style.borderColor='#871810'; this.style.color='#ffffff'; this.querySelector('i').style.color='#ffffff';" onmouseout="this.style.backgroundColor='transparent'; this.style.borderColor='#c2180c'; this.style.color='#c2180c'; this.querySelector('i').style.color='#c2180c';">
                                                                 <i class="bi bi-x-circle" style="color:#c2180c;"></i>
                                                             </button>
+                                                            <?php
+                                                                }
+                                                            ?>
                                                         </div>
                                                     </td>
                                                 </tr>
