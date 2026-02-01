@@ -29,7 +29,7 @@ Admins log in → Create/Update data → System records changes → Audit logs t
 
 - Secure authentication with QC ID and password
 - Create and manage projects, contractors, articles, and reports
-- Comprehensive audit trail with undo functionality
+- Comprehensive audit trail 
 - Full control over content visibility and status
 
 ### 2️⃣ Public Access (Citizens)
@@ -64,7 +64,7 @@ MySQL Database ↔ Controllers (Backend Logic) ↔ Views (User Interface)
 | 📊 **Analytics Dashboard**  | KPIs, charts, and system overview at a glance                           |
 | 🔧 **Full CRUD Management** | Create, read, update, delete projects, contractors, articles & accounts |
 | 📋 **Report Moderation**    | Review and respond to citizen reports with status updates               |
-| 📜 **Audit Trails**         | Track all changes with diff view and undo capabilities                  |
+| 📜 **Audit Trails**         | Track all changes with diff view                   |
 | 🗺️ **Project Map**          | Visualize project locations with filterable markers                     |
 | 👤 **User Management**      | Control admin accounts, roles, and permissions                          |
 
@@ -96,7 +96,6 @@ MySQL Database ↔ Controllers (Backend Logic) ↔ Views (User Interface)
 │  ├─ 👷 Contractors Management
 │  ├─ 💬 Reports & Feedback
 │  ├─ 📜 Audit Logs
-│  └─ ⚙️ System Settings
 │
 └─ 🌐 Public Portal
    ├─ 🏠 Home & Featured Content

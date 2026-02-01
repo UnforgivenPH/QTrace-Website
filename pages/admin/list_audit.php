@@ -144,11 +144,6 @@
                                                                 onclick='viewDiff(<?php echo json_encode($log['old_values']); ?>, <?php echo json_encode($log['new_values']); ?>)'>
                                                             <i class="bi bi-eye"></i>
                                                         </button>
-                                                        <button class="btn btn-sm btn-outline-warning" 
-                                                                onclick='confirmUndo(<?php echo $log["audit_log_id"]; ?>, "<?php echo htmlspecialchars($log["resource_type"]); ?>", "<?php echo htmlspecialchars($log["action"]); ?>")' 
-                                                                title="Undo this action">
-                                                            <i class="bi bi-arrow-counterclockwise"></i>
-                                                        </button>
                                                     </div>
                                                 </td>
                                             </tr>

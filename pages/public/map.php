@@ -1,6 +1,7 @@
 <?php 
     session_start();
     $current_page = 'map'; 
+    $userRole = $_SESSION['role'] ?? '';
     require('../../database/controllers/get_projectMap.php');
     
 ?>
@@ -171,7 +172,7 @@
         <!-- Custome Script For This Page Only  -->     
         <script>
             const projects = <?php echo json_encode($projects); ?>;
-            const userRole = "<?php echo $_SESSION['role']; ?>";
+            const userRole = "<?php echo $userRole; ?>";
         </script>
 
         <!-- Map Link -->
