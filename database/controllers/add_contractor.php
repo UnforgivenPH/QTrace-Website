@@ -18,6 +18,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $years_experience = (int)$_POST['years_experience'];
     $notes            = $conn->real_escape_string($_POST['additional_notes']);
 
+    // Validate contact number length
+    if (strlen($contact_number) != 11 || !ctype_digit($contact_number)) {
+        $_SESSION['error_message'] = 'Contact number must be exactly 11 digits';
+        header('Location: /QTrace-Website/pages/admin/add_contractor.php');
+        exit();
+    }
+
     // Begin Transaction
     $conn->begin_transaction();
 

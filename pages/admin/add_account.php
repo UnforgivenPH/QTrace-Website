@@ -119,7 +119,8 @@
                     <div class="row mb-2">
                       <div class="col-md-6">
                         <label class="form-label fw-medium color-black" for="contactNumber">Contact Number</label>
-                        <input type="number" class="form-control" name="contact_number" placeholder="+639 9999 9999" required />
+                        <input type="text" class="form-control" name="contact_number" id="contactNumber" placeholder="09123456789" maxlength="11" required />
+                        <div id="contactError" class="text-danger small mt-1" style="display: none;"></div>
                       </div>
                       <div class="col-md-6">
                         <label for="validationDefaultEmail" class="form-label fw-medium color-black" >Email</label >
@@ -161,7 +162,44 @@
     
     <!-- Custome Script For This Page Only  --> 
     <script>
-
+      // Contact Number Validation
+      const contactInput = document.getElementById('contactNumber');
+      const contactError = document.getElementById('contactError');
+      
+      contactInput.addEventListener('input', function(e) {
+        // Remove non-numeric characters
+        this.value = this.value.replace(/[^0-9]/g, '');
+        
+        if (this.value.length > 11) {
+          this.value = this.value.slice(0, 11);
+          contactError.textContent = 'Contact number must be exactly 11 digits only';
+          contactError.style.display = 'block';
+          this.classList.add('is-invalid');
+        } else if (this.value.length < 11 && this.value.length > 0) {
+          contactError.textContent = 'Contact number must be exactly 11 digits';
+          contactError.style.display = 'block';
+          this.classList.add('is-invalid');
+        } else if (this.value.length === 11) {
+          contactError.style.display = 'none';
+          this.classList.remove('is-invalid');
+        } else {
+          contactError.style.display = 'none';
+          this.classList.remove('is-invalid');
+        }
+      });
+      
+      // Form submission validation
+      const form = document.querySelector('form');
+      form.addEventListener('submit', function(e) {
+        const contactValue = contactInput.value;
+        if (contactValue.length !== 11) {
+          e.preventDefault();
+          contactError.textContent = 'Contact number must be exactly 11 digits';
+          contactError.style.display = 'block';
+          contactInput.classList.add('is-invalid');
+          contactInput.focus();
+        }
+      });
     </script>
          
     <!-- Reusable Script -->

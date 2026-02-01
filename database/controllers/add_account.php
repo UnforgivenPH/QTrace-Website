@@ -21,6 +21,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $raw_password   = $_POST['defaultpassword'];
     $hashed_password = password_hash($raw_password, PASSWORD_BCRYPT);
 
+
+    if (strlen($contact_number) != 11 || !ctype_digit($contact_number)) {
+        $_SESSION['error_message'] = 'Contact number must be exactly 11 digits';
+        header('Location: /QTrace-Website/pages/admin/add_account.php');
+        exit();
+    }
+
     // 3. Generate 11-digit Unique QC ID
     $isUnique = false;
     $qc_id_number = "";
