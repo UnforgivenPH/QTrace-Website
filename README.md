@@ -39,69 +39,69 @@ QTrace is a transparency and monitoring platform for Quezon City government proj
 
 ## Sitemap and Page Descriptions
 
-### Admin (Main Sections and Child Pages)
+### Admin Portal
 
-- **Authentication**
-  - pages/admin/login.php: Admin login form for QC ID and password with session feedback.
+Authentication
+|------ Login: Admin login form for QC ID and password with session feedback.
 
-- **Dashboard**
-  - pages/admin/dashboard.php: Admin analytics dashboard with project, budget, report, and user KPIs plus charts and recent activity.
+Dashboard
+|------ Dashboard: Analytics dashboard with project, budget, report, and user KPIs plus charts and recent activity.
 
-- **Accounts (Main: list_account.php)**
-  - pages/admin/list_account.php: User account list with search/filter and status actions.
-  - pages/admin/add_account.php: New user registration form with personal/contact info.
-  - pages/admin/edit_account.php: Edit user profile with personal/contact details.
-  - pages/admin/view_account.php: Detailed user profile with activation/disable controls.
+Accounts
+|------ Accounts: User account list with search/filter and status actions.
+|------ Add Account: New user registration form with personal/contact info.
+|------ Edit Account: Edit user profile with personal/contact details.
+|------ View Account: Detailed user profile with activation/disable controls.
 
-- **Projects (Main: list_project.php)**
-  - pages/admin/list_project.php: Project list with filters, status badges, and actions.
-  - pages/admin/add_project.php: Multi-step project creation with map picker and uploads.
-  - pages/admin/edit_project.php: Multi-step project edit with map, budget, documents, and milestones.
-  - pages/admin/view_project.php: Project detail view with documents, gallery, and reports.
+Projects
+|------ Projects: Project list with filters, status badges, and actions.
+|------ Add Project: Multi-step project creation with map picker and uploads.
+|------ Edit Project: Multi-step project edit with map, budget, documents, and milestones.
+|------ View Project: Project detail view with documents, gallery, and reports.
 
-- **Articles (Main: list_article.php)**
-  - pages/admin/list_article.php: Article list with filters and view/edit actions.
-  - pages/admin/add_article.php: Create article form tied to a project with image upload/URL.
-  - pages/admin/edit_article.php: Edit article form with status/type and image options.
-  - pages/admin/view_article.php: Article detail view with metadata and admin actions.
+Articles
+|------ Articles: Article list with filters and view/edit actions.
+|------ Add Article: Create article form tied to a project with image upload/URL.
+|------ Edit Article: Edit article form with status/type and image options.
+|------ View Article: Article detail view with metadata and admin actions.
 
-- **Contractors (Main: list_contractor.php)**
-  - pages/admin/list_contractor.php: Contractor list with filters and actions.
-  - pages/admin/add_contractor.php: Contractor registration with documents and validations.
-  - pages/admin/edit_contractor.php: Edit contractor form with logo, docs, and expertise.
-  - pages/admin/view_contractor.php: Contractor profile details with docs and status controls.
+Contractors
+|------ Contractors: Contractor list with filters and actions.
+|------ Add Contractor: Contractor registration with documents and validations.
+|------ Edit Contractor: Edit contractor form with logo, docs, and expertise.
+|------ View Contractor: Contractor profile details with docs and status controls.
 
-- **Reports (Main: list_reports.php)**
-  - pages/admin/list_reports.php: Report list with filters and detail links.
-  - pages/admin/view_report.php: Report detail view with evidence, comments, and status updates.
+Reports
+|------ Reports: Report list with filters and detail links.
+|------ View Report: Report detail view with evidence, comments, and status updates.
 
-- **Audit Logs (Main: list_audit.php)**
-  - pages/admin/list_audit.php: Audit log list with filters, diff view, and undo.
+Audit Logs
+|------ Audit Logs: Audit log list with filters, diff view, and undo.
 
-- **Map (Main: project_map.php)**
-  - pages/admin/project_map.php: Admin project map with filters and sidebar list.
+Map
+|------ Project Map: Admin project map with filters and sidebar list.
 
-### Public (Main Sections and Child Pages)
+### Public Portal
 
-- **Home**
-  - pages/public/home.php: Public landing page with hero, stats, and calls to action.
+Home
+|------ Home: Public landing page with hero, stats, and calls to action.
 
-- **About**
-  - pages/public/aboutus.php: About page with mission, values, and impact stats.
+About
+|------ About Us: About page with mission, values, and impact stats.
 
-- **Projects (Main: project.php)**
-  - pages/public/project.php: Public project list with filters and pagination.
-  - pages/public/projectDetails.php: Public project detail with docs, gallery, and citizen reports.
-  - pages/public/map.php: Public interactive project map with filters and list.
-  - pages/public/projectsAudit.php: Public audit log viewer with filters and change details.
+Projects
+|------ Projects: Public project list with filters and pagination.
+|------ View Project: Public project detail with docs, gallery, and citizen reports.
+|------ Project Map: Public interactive project map with filters and list.
+|------ Project Audit: Public audit log viewer with filters and change details.
 
-- **Articles (Main: articles.php)**
-  - pages/public/articles.php: Public articles list with featured item and pagination.
-  - pages/public/view_article.php: Public article detail with project context.
+Articles
+|------ Articles: Public articles list with featured item and pagination.
+|------ View Article: Public article detail with project context.
 
-- **Contractors (Main: contractor.php)**
-  - pages/public/contractor.php: Public contractor list with search and filters.
-  - pages/public/contractorDetails.php: Public contractor profile with docs and related projects.
+Contractors
+|------ Contractors: Public contractor list with search and filters.
+|------ View Contractor: Public contractor profile with docs and related projects.
 
 ## Notes
 
