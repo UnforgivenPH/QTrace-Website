@@ -1,6 +1,6 @@
 <?php 
-    $current_page = 'projects'; 
     session_start();
+    $current_page = 'projects'; 
     require('../../database/controllers/get_project_details.php');
     require('../../database/controllers/get_client_report.php');
 ?>

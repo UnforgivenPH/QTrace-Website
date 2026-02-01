@@ -1,6 +1,6 @@
 <?php 
-    $current_page = 'contractor'; 
     session_start();
+    $current_page = 'contractor'; 
     require('../../database/controllers/get_view_contractor.php');
 
 ?>

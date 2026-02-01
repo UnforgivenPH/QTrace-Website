@@ -1,4 +1,5 @@
-<?php 
+<?php
+    session_start();
     $current_page = 'audit'; 
     require('../../database/controllers/get_client_project_audit.php');
 ?>

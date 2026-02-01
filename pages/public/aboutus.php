@@ -1,4 +1,5 @@
-<?php 
+<?php
+    session_start();
     $current_page = 'aboutUs';
     require('../../database/controllers/get_data.php');
 ?>

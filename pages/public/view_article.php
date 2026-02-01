@@ -1,4 +1,5 @@
 <?php 
+    session_start();
     $current_page = 'articles';
     include('../../database/connection/connection.php');
     require('../../database/controllers/get_article_detail.php');

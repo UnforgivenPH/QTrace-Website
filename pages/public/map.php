@@ -1,7 +1,8 @@
 <?php 
+    session_start();
     $current_page = 'map'; 
     require('../../database/controllers/get_projectMap.php');
-    session_start();
+    
 ?>
 
 <!DOCTYPE html>

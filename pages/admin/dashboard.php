@@ -101,10 +101,22 @@
 
                 <main class="main-view">
                     <div class="container-fluid">
-                        <div class="d-flex flex-wrap justify-content-between align-items-center mb-4">
-                            <div>
-                                <h2 class="h4 fw-bold m-0">Dashboard Overview</h2>
-                                <p class="text-muted mb-0">Live operational insights from QTrace data</p>
+                        <nav aria-label="breadcrumb">
+                            <!-- Breadcrumb -->
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item active">
+                                <a href="/QTrace-Website/dashboard ">Dashboard</a>
+                                </li>
+                                <li class="breadcrumb-item"></li>
+                            </ol>
+                        </nav>
+
+                        <div class="d-flex flex-wrap justify-content-between align-items-top mb-4 t">
+                            <div class="row mb-0">
+                                <div class="col">
+                                    <h2 class="fw-bold">Dashboard Overview</h2>
+                                    <p>Live operational insights from QTrace data</p>
+                                </div>
                             </div>
                             <div class="text-muted small" id="dashboardUpdatedAt"> <?= date('M d, Y • h:i A'); ?></div>
                         </div>
@@ -251,12 +263,12 @@
                                     </div>
                                     <?php if (!empty($reportStatus)): ?>
                                         <div class="row g-3 align-items-center">
-                                            <div class="col-12">
+                                            <div class="col-9">
                                                 <div class="chart-container">
                                                     <canvas id="reportStatusChart"></canvas>
                                                 </div>
                                             </div>
-                                            <div class="col-12">
+                                            <div class="col-3">
                                                 <div class="chart-legend">
                                                     <?php foreach ($reportStatus as $status => $count): ?>
                                                         <?php $percent = $totalReports > 0 ? round(($count / $totalReports) * 100) : 0; ?>
@@ -334,16 +346,24 @@
                                         <div class="list-group list-group-flush">
                                             <?php foreach ($recentReports as $report): ?>
                                                 <div class="list-group-item px-0">
+                                                    <div class="row">
+                                                        <div class="col-10">
+                                                            <div class="fw-semibold"><?= htmlspecialchars($report['report_type'] ?? 'Report') ?></div>
+                                                        </div>
+                                                        <div class="col-2 d-flex justify-content-end">
+                                                            <span class="badge bg-warning bg-opacity-10 text-warning">
+                                                                <?= htmlspecialchars($report['report_status'] ?? 'Pending') ?>
+                                                            </span>
+                                                        </div>
+
+                                                    </div>
                                                     <div class="d-flex justify-content-between">
                                                         <div>
-                                                            <div class="fw-semibold"><?= htmlspecialchars($report['report_type'] ?? 'Report') ?></div>
                                                             <small class="text-muted"><?= htmlspecialchars($report['ProjectDetails_Title'] ?? 'Project') ?></small>
                                                         </div>
-                                                        <span class="badge bg-warning bg-opacity-10 text-warning">
-                                                            <?= htmlspecialchars($report['report_status'] ?? 'Pending') ?>
-                                                        </span>
+                                                        
                                                     </div>
-                                                    <small class="text-muted"><?= date('M d, Y h:i A', strtotime($report['report_CreatedAt'])) ?></small>
+                                                    <small class="text-muted small"><?= date('M d, Y h:i A', strtotime($report['report_CreatedAt'])) ?></small>
                                                 </div>
                                             <?php endforeach; ?>
                                         </div>
@@ -381,7 +401,7 @@
                 .replace(' ', ' • ');
             const updatedEl = document.getElementById('dashboardUpdatedAt');
             if (updatedEl) {
-                updatedEl.textContent = `Updated ${formatted}`;
+                updatedEl.textContent = ` ${formatted}`;
             }
         };
 

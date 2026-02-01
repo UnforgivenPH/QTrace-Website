@@ -1,4 +1,5 @@
 <?php 
+    session_start();
     $current_page = 'articles';
     require('../../database/controllers/get_client_article_list.php');
     

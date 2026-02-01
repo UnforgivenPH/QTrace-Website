@@ -1,4 +1,5 @@
 <?php 
+    session_start();
     $current_page = 'contractor'; 
     require('../../database/controllers/get_client_contractors.php');
 ?>

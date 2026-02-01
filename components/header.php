@@ -3,25 +3,16 @@
             flex-shrink: 0;
             z-index: 1050;
         }
-
-    .search-box-desktop { max-width: 450px; }
 </style>
     <header class="top-header navbar navbar-dark shadow px-3 d-flex align-items-center py-3 bg-color-primary">
-        <a class="navbar-brand lh-1 fw-bold d-flex align-items-center me-auto" href="#">
-        <i class="bi bi-shield-check me-2"></i>
-        <div >
-            <span class="fs-5">QTrace</span>
-            <br>
-            <span class="fs-8 fw-normal">Quezon City Transparency</span>
-        </div>
-        </a>
-
-        <div class="d-none d-lg-flex flex-grow-1 justify-content-center px-4">
-            <div class="input-group input-group-sm search-box-desktop">
-                <span class="input-group-text bg-color-surface bg-opacity-10 border-0 color-black"><i class="bi bi-search"></i></span>
-                <input type="text" class="form-control bg-color-surface bg-opacity-10 border-0  shadow-none color-black" placeholder="Search projects...">
+        <a class="navbar-brand d-flex align-items-center" style="line-height: 0.8;" href="#">
+            <img src="/QTrace-Website/assets/image/QTraceLogo.png" alt="QTrace Logo" srcset="" style="width: 30px;" class="me-2">
+            <div>
+                <span class="fs-5 lh-0">QTrace</span>
+                <br>
+                <span class=" fw-normal" style="font-size: 0.75rem;">Quezon City Transparency</span>
             </div>
-        </div>
+        </a>
 
         <div class="d-flex align-items-center">
             <!-- <div class="dropdown d-none d-lg-block">

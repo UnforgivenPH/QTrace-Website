@@ -4,9 +4,12 @@
     require('../../database/connection/connection.php');
     
     // Fetch active projects for dropdown
-    $projects_sql = "SELECT pt.Project_ID, pd.ProjectDetails_Title FROM projects_table pt 
-                     INNER JOIN projectdetails_table pd ON pt.Project_ID = pd.Project_ID 
-                     WHERE pt.Project_Status != 'Disabled' ORDER BY pd.ProjectDetails_Title";
+    $projects_sql = "SELECT pt.Project_ID, pd.ProjectDetails_Title 
+                    FROM projects_table pt 
+                    INNER JOIN projectdetails_table pd 
+                    ON pt.Project_ID = pd.Project_ID 
+                    WHERE pt.Project_Status != 'Disabled' 
+                    ORDER BY pd.ProjectDetails_Title";
     $projects = $conn->query($projects_sql);
 ?>
 
@@ -23,27 +26,10 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
         <link rel="stylesheet" href="/QTrace-Website/assets/css/styles.css">
         <style>
-            .nav-tabs .nav-link {
-                color: #495057;
-                border: 1px solid #dee2e6;
-                border-bottom: none;
-                border-radius: 0.25rem 0.25rem 0 0;
-            }
-            .nav-tabs .nav-link:hover {
-                border-color: #dee2e6 #dee2e6 #dee2e6 #dee2e6;
-                color: #0c63e4;
-            }
-            .nav-tabs .nav-link.active {
-                color: #495057;
-                background-color: #fff;
-                border-color: #dee2e6 #dee2e6 #fff #dee2e6;
-                border-bottom-color: transparent;
-            }
-            .tab-content {
-                border: 1px solid #dee2e6;
-                border-top: none;
-                padding: 1rem;
-            }
+            .nav-tabs .nav-link {color: #495057;border: 1px solid #dee2e6;border-bottom: none;border-radius: 0.25rem 0.25rem 0 0;}
+            .nav-tabs .nav-link:hover {border-color: #dee2e6 #dee2e6 #dee2e6 #dee2e6;color: #0c63e4;}
+            .nav-tabs .nav-link.active {color: #495057;background-color: #fff;border-color: #dee2e6 #dee2e6 #fff #dee2e6;border-bottom-color: transparent;}
+            .tab-content {border: 1px solid #dee2e6;border-top: none;padding: 1rem;}
         </style>
     </head>
     <body style="background-color: var(--bg-light);">

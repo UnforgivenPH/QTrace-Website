@@ -1,4 +1,5 @@
-<?php 
+<?php
+    session_start();
     $current_page = 'projects'; 
     require('../../database/controllers/get_client_project.php');
 ?>
