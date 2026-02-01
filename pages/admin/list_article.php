@@ -3,7 +3,6 @@
     include('../../database/connection/security.php');
     require('../../database/controllers/get_admin_articles_list.php');
     
-    // Helper function to format budget
     function formatBudget($amount) {
         return '₱' . number_format($amount, 2);
     }
@@ -24,27 +23,11 @@
         <!-- Project Styles -->
         <link rel="stylesheet" href="/QTrace-Website/assets/css/styles.css">
         <style>
-            /* Inquirer-style editorial cards */
-            .news-hero { display: grid; grid-template-columns: 1fr; gap: 12px; }
-            .news-hero .thumb { width: 100%; aspect-ratio: 16/9; border-radius: 12px; overflow: hidden; background: #eef0f3; }
-            .news-hero .thumb img { width: 100%; height: 100%; object-fit: cover; }
-            .news-hero .title { font-size: 1.25rem; font-weight: 800; }
-            .news-hero .meta { color: #6b7280; }
-
-            .news-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 12px; overflow: hidden; }
-            @media (min-width: 992px) { .news-grid { grid-template-columns: repeat(12, 1fr); } }
-            @media (max-width: 991.98px) { .news-grid { grid-template-columns: repeat(6, 1fr); } }
-            @media (max-width: 575.98px) { .news-grid { grid-template-columns: repeat(2, 1fr); } }
-
-            .news-card { grid-column: span 4; display: flex; gap: 10px; background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; }
-            .news-card .thumb { width: 140px; height: 100%; max-height: 100px; background: #eef0f3; flex-shrink: 0; }
-            .news-card .thumb img { width: 100%; height: 100%; object-fit: cover; }
-            .news-card .body { padding: 10px; flex: 1; }
-            .kicker { font-size: 11px; text-transform: uppercase; letter-spacing: .04em; color: #6b7280; }
-            .headline { font-weight: 700; }
-            .meta { color: #6b7280; font-size: 12px; }
-            .excerpt { color: #4b5563; font-size: 13px; }
-            .project-heading { display: flex; align-items: center; justify-content: space-between; }
+            .table-hover tbody tr { cursor: pointer; transition: background-color 0.2s; }
+            .table-hover tbody tr:hover { background-color: #f8f9fa; }
+            .badge { font-size: 0.75rem; padding: 0.25rem 0.5rem; }
+            .filter-section { background: #fff; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+            .action-btn { padding: 0.25rem 0.5rem; font-size: 0.875rem; }
         </style>
     </head>
     <body style="background-color: var(--bg-light);">
@@ -81,102 +64,152 @@
                             <?php unset($_SESSION['success_message']); ?>
                         <?php endif; ?>
 
-                        <div class="mb-3 d-flex justify-content-end">
+                        <!-- Filter Section -->
+                        <div class="filter-section">
+                            <form method="GET" action="" id="filterForm">
+                                <div class="row g-3 align-items-end">
+                                    <div class="col-md-3">
+                                        <label class="form-label small mb-1">Search</label>
+                                        <input type="text" class="form-control form-control-sm" name="search" placeholder="Title or Description..." value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label small mb-1">Status</label>
+                                        <select class="form-select form-select-sm" name="status">
+                                            <option value="">All Status</option>
+                                            <option value="Published" <?= ($_GET['status'] ?? '') === 'Published' ? 'selected' : '' ?>>Published</option>
+                                            <option value="Draft" <?= ($_GET['status'] ?? '') === 'Draft' ? 'selected' : '' ?>>Draft</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <label class="form-label small mb-1">Type</label>
+                                        <select class="form-select form-select-sm" name="type">
+                                            <option value="">All Types</option>
+                                            <option value="News" <?= ($_GET['type'] ?? '') === 'News' ? 'selected' : '' ?>>News</option>
+                                            <option value="Update" <?= ($_GET['type'] ?? '') === 'Update' ? 'selected' : '' ?>>Update</option>
+                                            <option value="Announcement" <?= ($_GET['type'] ?? '') === 'Announcement' ? 'selected' : '' ?>>Announcement</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="form-label small mb-1">Barangay</label>
+                                        <input type="text" class="form-control form-control-sm" name="barangay" placeholder="Barangay name..." value="<?= htmlspecialchars($_GET['barangay'] ?? '') ?>">
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button type="submit" class="btn btn-sm btn-primary w-100"><i class="bi bi-funnel"></i> Filter</button>
+                                        <a href="<?= $_SERVER['PHP_SELF'] ?>" class="btn btn-sm btn-outline-secondary w-100 mt-1"><i class="bi bi-arrow-clockwise"></i> Reset</a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="mb-3 d-flex justify-content-between align-items-center">
+                            <div>
+                                <span class="text-muted">Total: <?= $total_records ?> articles</span>
+                            </div>
                             <a class="btn btn-primary btn-sm" href="/QTrace-Website/add-article"><i class="bi bi-plus-lg me-1"></i> Add Article</a>
                         </div>
 
-                        <!-- Articles List -->
-                        <section class="card border-0 shadow-sm mb-4" id="articles-section">
-                            <div class="card-body">
-                                <div class="project-heading mb-3">
-                                    <span class="fw-bold">All Articles</span>
-                                </div>
+                        <!-- Articles Table -->
+                        <section class="card border-0 shadow-sm mb-4">
+                            <div class="card-body p-0">
+                                <div class="table-responsive">
+                                    <table class="table table-hover align-middle mb-0">
+                                        <thead class="table-light">
+                                            <tr>
+                                                <th class="px-3">ID</th>
+                                                <th>Project Title</th>
+                                                <th>Type</th>
+                                                <th>Barangay</th>
+                                                <th>Budget</th>
+                                                <th>Author</th>
+                                                <th>Status</th>
+                                                <th>Created</th>
+                                                <th class="text-center">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php 
+                                            // Combine featured and regular articles
+                                            $all_articles = [];
+                                            if ($featured_article) {
+                                                $all_articles[] = $featured_article;
+                                            }
+                                            if ($articles_result && $articles_result->num_rows > 0) {
+                                                while($article = $articles_result->fetch_assoc()) {
+                                                    $all_articles[] = $article;
+                                                }
+                                            }
+                                            ?>
 
-                                <?php 
-                                // Combine featured and regular articles
-                                $all_articles = [];
-                                if ($featured_article) {
-                                    $all_articles[] = $featured_article;
-                                }
-                                if ($articles_result && $articles_result->num_rows > 0) {
-                                    while($article = $articles_result->fetch_assoc()) {
-                                        $all_articles[] = $article;
-                                    }
-                                }
-                                ?>
-
-                                <?php if (count($all_articles) > 0): ?>
-                                    <?php 
-                                    $first = true;
-                                    foreach($all_articles as $article): 
-                                        if ($first): 
-                                            $first = false;
-                                    ?>
-                                    <!-- Hero Article (First) -->
-                                    <div class="news-hero mb-3" style="cursor: pointer;" onclick="window.location.href='/QTrace-Website/view-article?id=<?= $article['article_ID'] ?>';">
-                                        <div class="thumb">
-                                            <?php if (!empty($article['article_photo_url'])): ?>
-                                                <img alt="<?= htmlspecialchars($article['ProjectDetails_Title']) ?>" src="<?= htmlspecialchars($article['article_photo_url']) ?>" />
-                                            <?php else: ?>
-                                                <img alt="<?= htmlspecialchars($article['ProjectDetails_Title']) ?>" src="https://placehold.co/1280x720" />
-                                            <?php endif; ?>
-                                        </div>
-                                        <div>
-                                            <div class="kicker"><?= htmlspecialchars($article['article_type']) ?></div>
-                                            <div class="title"><?= htmlspecialchars($article['ProjectDetails_Title']) ?></div>
-                                            <div class="meta">
-                                                <?= htmlspecialchars($article['ProjectDetails_Barangay']) ?> • 
-                                                <?= htmlspecialchars($article['author_name'] ?: 'Admin') ?> • 
-                                                <?= date('Y-m-d', strtotime($article['article_created_at'])) ?>
-                                            </div>
-                                            <div class="excerpt"><?= htmlspecialchars(substr($article['article_description'], 0, 120)) ?>...</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="news-grid" id="articles-grid">
-                                    <?php else: ?>
-                                        <!-- Regular Article Cards -->
-                                        <div class="news-card" style="cursor: pointer;" onclick="window.location.href='/QTrace-Website/view-article?id=<?= $article['article_ID'] ?>';">
-                                            <div class="thumb">
-                                                <?php if (!empty($article['article_photo_url'])): ?>
-                                                    <img alt="<?= htmlspecialchars($article['ProjectDetails_Title']) ?>" src="<?= htmlspecialchars($article['article_photo_url']) ?>" />
-                                                <?php else: ?>
-                                                    <img alt="<?= htmlspecialchars($article['ProjectDetails_Title']) ?>" src="https://placehold.co/280x200" />
-                                                <?php endif; ?>
-                                            </div>
-                                            <div class="body">
-                                                <div class="kicker"><?= htmlspecialchars($article['article_type']) ?></div>
-                                                <div class="headline"><?= htmlspecialchars($article['ProjectDetails_Title']) ?></div>
-                                                <div class="meta">
-                                                    <?= htmlspecialchars($article['ProjectDetails_Barangay']) ?> • 
-                                                    <?= htmlspecialchars($article['author_name'] ?: 'Admin') ?> • 
-                                                    <?= date('Y-m-d', strtotime($article['article_created_at'])) ?>
-                                                </div>
-                                                <div class="excerpt"><?= htmlspecialchars(substr($article['article_description'], 0, 80)) ?>...</div>
-                                                <div class="mt-2">
-                                                    <?php 
+                                            <?php if (count($all_articles) > 0): ?>
+                                                <?php foreach($all_articles as $article): 
                                                     $statusBadges = array(
                                                         'Published' => 'bg-success',
                                                         'Draft' => 'bg-warning text-dark'
                                                     );
                                                     $badgeClass = isset($statusBadges[$article['article_status']]) ? $statusBadges[$article['article_status']] : 'bg-secondary';
-                                                    ?>
-                                                    <span class="badge <?= $badgeClass ?>"><?= htmlspecialchars($article['article_status']) ?></span>
-                                                    <span class="badge bg-light text-dark"><?= formatBudget($article['ProjectDetails_Budget']) ?></span>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    <?php endif; endforeach; ?>
-                                    </div>
-                                <?php else: ?>
-                                    <div class="text-center py-5">
-                                        <i class="bi bi-folder-x fs-1 text-muted"></i>
-                                        <p class="mt-3 text-muted">No articles found. Click "Add Article" to create one.</p>
-                                    </div>
-                                <?php endif; ?>
+                                                ?>
+                                                <tr onclick="window.location.href='/QTrace-Website/view-article?id=<?= $article['article_ID'] ?>';">
+                                                    <td class="px-3 fw-bold"><?= str_pad($article['article_ID'], 4, '0', STR_PAD_LEFT) ?></td>
+                                                    <td>
+                                                        <div class="fw-semibold"><?= htmlspecialchars($article['ProjectDetails_Title']) ?></div>
+                                                        <small class="text-muted"><?= htmlspecialchars(substr($article['article_description'], 0, 60)) ?>...</small>
+                                                    </td>
+                                                    <td><span class="badge bg-info text-white"><?= htmlspecialchars($article['article_type']) ?></span></td>
+                                                    <td><?= htmlspecialchars($article['ProjectDetails_Barangay']) ?></td>
+                                                    <td><?= formatBudget($article['ProjectDetails_Budget']) ?></td>
+                                                    <td><?= htmlspecialchars($article['author_name'] ?: 'Admin') ?></td>
+                                                    <td><span class="badge <?= $badgeClass ?>"><?= htmlspecialchars($article['article_status']) ?></span></td>
+                                                    <td><?= date('M d, Y', strtotime($article['article_created_at'])) ?></td>
+                                                    <td class="text-center">
+                                                        <div class="btn-group btn-group-sm" role="group" onclick="event.stopPropagation();">
+                                                            <a href="/QTrace-Website/view-article?id=<?= $article['article_ID'] ?>" class="btn btn-outline-primary action-btn" title="View">
+                                                                <i class="bi bi-eye"></i>
+                                                            </a>
+                                                            <a href="/QTrace-Website/edit-article?id=<?= $article['article_ID'] ?>" class="btn btn-outline-secondary action-btn" title="Edit">
+                                                                <i class="bi bi-pencil"></i>
+                                                            </a>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                                <?php endforeach; ?>
+                                            <?php else: ?>
+                                                <tr>
+                                                    <td colspan="9" class="text-center py-5">
+                                                        <i class="bi bi-folder-x fs-1 text-muted"></i>
+                                                        <p class="mt-3 text-muted">No articles found. Click "Add Article" to create one.</p>
+                                                    </td>
+                                                </tr>
+                                            <?php endif; ?>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </section>
-                        <div class="d-flex justify-content-end mt-3" id="articles-pagination" data-page="1"></div>
+
+                        <!-- Pagination -->
+                        <?php if ($total_pages > 1): ?>
+                        <nav aria-label="Articles pagination">
+                            <ul class="pagination justify-content-end">
+                                <?php if ($page > 1): ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page=<?= $page - 1 ?><?= isset($_GET['search']) ? '&search=' . urlencode($_GET['search']) : '' ?><?= isset($_GET['status']) ? '&status=' . urlencode($_GET['status']) : '' ?><?= isset($_GET['type']) ? '&type=' . urlencode($_GET['type']) : '' ?><?= isset($_GET['barangay']) ? '&barangay=' . urlencode($_GET['barangay']) : '' ?>">Previous</a>
+                                    </li>
+                                <?php endif; ?>
+
+                                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
+                                    <li class="page-item <?= $i == $page ? 'active' : '' ?>">
+                                        <a class="page-link" href="?page=<?= $i ?><?= isset($_GET['search']) ? '&search=' . urlencode($_GET['search']) : '' ?><?= isset($_GET['status']) ? '&status=' . urlencode($_GET['status']) : '' ?><?= isset($_GET['type']) ? '&type=' . urlencode($_GET['type']) : '' ?><?= isset($_GET['barangay']) ? '&barangay=' . urlencode($_GET['barangay']) : '' ?>"><?= $i ?></a>
+                                    </li>
+                                <?php endfor; ?>
+
+                                <?php if ($page < $total_pages): ?>
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page=<?= $page + 1 ?><?= isset($_GET['search']) ? '&search=' . urlencode($_GET['search']) : '' ?><?= isset($_GET['status']) ? '&status=' . urlencode($_GET['status']) : '' ?><?= isset($_GET['type']) ? '&type=' . urlencode($_GET['type']) : '' ?><?= isset($_GET['barangay']) ? '&barangay=' . urlencode($_GET['barangay']) : '' ?>">Next</a>
+                                    </li>
+                                <?php endif; ?>
+                            </ul>
+                        </nav>
+                        <?php endif; ?>
                     </div>
                 </main>
             </div>
@@ -185,50 +218,5 @@
         <!-- Scripts -->
         <script src="/QTrace-Website/assets/js/mouseMovement.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script>
-            // Single pagination (5 per page) into unified grid
-            (function() {
-                const PAGE_SIZE = 5;
-                const grid = document.getElementById('articles-grid');
-                const pager = document.getElementById('articles-pagination');
-
-                function renderPager(current, total) {
-                    const prevDisabled = current <= 1;
-                    const nextDisabled = current >= total;
-                    let html = '<nav aria-label="Page navigation"><ul class="pagination pagination-sm mb-0">';
-                    html += `<li class="page-item ${prevDisabled ? 'disabled' : ''}"><a class="page-link" href="#" data-page="${Math.max(1, current-1)}">Prev</a></li>`;
-                    for (let i = 1; i <= total; i++) {
-                        html += `<li class="page-item ${i === current ? 'active' : ''}"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`;
-                    }
-                    html += `<li class="page-item ${nextDisabled ? 'disabled' : ''}"><a class="page-link" href="#" data-page="${Math.min(total, current+1)}">Next</a></li>`;
-                    html += '</ul></nav>';
-                    return html;
-                }
-
-                function paginate() {
-                    if (!grid || !pager) return;
-                    const cards = Array.from(grid.querySelectorAll('.news-card'));
-                    const totalPages = Math.max(1, Math.ceil(cards.length / PAGE_SIZE));
-                    let current = Number(pager.dataset.page || '1');
-                    if (current > totalPages) current = 1;
-                    cards.forEach((card, idx) => {
-                        const pageIndex = Math.floor(idx / PAGE_SIZE) + 1;
-                        card.classList.toggle('d-none', pageIndex !== current);
-                    });
-                    pager.innerHTML = renderPager(current, totalPages);
-                    pager.querySelectorAll('[data-page]').forEach(link => {
-                        link.addEventListener('click', (e) => {
-                            e.preventDefault();
-                            const p = Number(link.getAttribute('data-page'));
-                            pager.dataset.page = String(p);
-                            paginate();
-                        });
-                    });
-                }
-
-                // Initialize
-                paginate();
-            })();
-        </script>
     </body>
 </html>

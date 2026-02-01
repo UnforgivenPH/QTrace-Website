@@ -129,6 +129,7 @@
                         <ul class="nav nav-tabs details px-4 pt-2 pb-2 gap-3" id="contractorTabs">
                             <li class="nav-item "><button class="nav-link text-black-50 fw-medium  active" data-bs-toggle="tab" data-bs-target="#profile"><i class="bi bi-info-circle me-2"></i>Profile Overview</button></li>
                             <li class="nav-item "><button class="nav-link text-black-50 fw-medium " data-bs-toggle="tab" data-bs-toggle="tab" data-bs-target="#docs"><i class="bi bi-shield-check me-2"></i>Legal Documents (<?php echo count($documents); ?>)</button></li>
+                            <li class="nav-item "><button class="nav-link text-black-50 fw-medium  " data-bs-toggle="tab" data-bs-target="#projects"><i class="bi bi-info-circle me-2"></i>Projects</button></li>
                         </ul>
                     </div>
                     <div class="card-body p-4 tab-content">
@@ -182,6 +183,62 @@
                                     <?php endforeach; ?>
                                 <?php endif; ?>
                             </div>
+                        </div>
+
+                        <div class="tab-pane fade" id="projects">
+                            <p class="text-muted mb-4 small">All projects currently or previously handled by this contractor.</p>
+                            <?php if(empty($projects)): ?>
+                                <div class="text-center py-5">
+                                    <i class="bi bi-briefcase text-muted" style="font-size: 3rem;"></i>
+                                    <p class="mt-3 text-muted">No projects found for this contractor.</p>
+                                </div>
+                            <?php else: ?>
+                                <div class="list-group">
+                                    <?php foreach($projects as $project): ?>
+                                    <a href="/QTrace-Website/project-details?id=<?php echo $project['Project_ID']; ?>" class="list-group-item list-group-item-action border rounded mb-3 p-3 text-decoration-none">
+                                        <div class="d-flex align-items-center">
+                                            <!-- Icon -->
+                                            <div class="icon-box me-3 flex-shrink-0">
+                                                <i class="bi bi-building"></i>
+                                            </div>
+                                            
+                                            <!-- Title and Status -->
+                                            <div class="flex-grow-1">
+                                                <div class="mb-1">
+                                                    <span class="fw-bold fs-5 me-2 text-dark">
+                                                        <?php echo htmlspecialchars($project['Project_Title'] ?? 'Project ' . $project['Project_ID']); ?>
+                                                    </span>
+                                                    <span class="badge
+                                                        <?php 
+                                                            if($project['Project_Status'] == 'Completed') echo 'bg-success';
+                                                            elseif($project['Project_Status'] == 'Ongoing') echo 'bg-primary';
+                                                            elseif($project['Project_Status'] == 'Delayed') echo 'bg-warning';
+                                                            elseif($project['Project_Status'] == 'Planning') echo 'bg-info';
+                                                            else echo 'bg-secondary';
+                                                        ?>
+                                                    " style="font-size: 0.70rem;">
+                                                        <?php echo htmlspecialchars($project['Project_Status']); ?>
+                                                    </span>
+                                                </div>
+                                                <div class="d-flex align-items-center gap-3 flex-wrap">
+                                                    <small class="text-muted">
+                                                        <i class="bi bi-calendar-event me-1"></i>Start: <?php echo date("M d, Y", strtotime($project['Project_CreatedAt'])); ?>
+                                                    </small>
+                                                    <small class="text-muted">
+                                                        <i class="bi bi-calendar-check me-1"></i>End: <?php echo date("M d, Y", strtotime($project['Project_UpdatedAT'] ?? $project['Project_CreatedAt'])); ?>
+                                                    </small>
+                                                </div>
+                                            </div>
+                                            
+                                            <!-- Arrow Icon -->
+                                            <div class="ms-3">
+                                                <i class="bi bi-chevron-right text-muted"></i>
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <?php endforeach; ?>
+                                </div>
+                            <?php endif; ?>
                         </div>
 
 

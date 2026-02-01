@@ -33,6 +33,19 @@ try {
     $documents_res = $stmtDoc->get_result();
     $documents = $documents_res->fetch_all(MYSQLI_ASSOC);
 
+    // 4. Fetch Projects with Details
+    $stmtProj = $conn->prepare("
+        SELECT p.*, pd.ProjectDetails_Title, pd.ProjectDetails_Description 
+        FROM projects_table p
+        LEFT JOIN projectdetails_table pd ON p.Project_ID = pd.Project_ID
+        WHERE p.Contractor_ID = ? 
+        ORDER BY p.Project_CreatedAt DESC
+    ");
+    $stmtProj->bind_param("i", $contractor_id);
+    $stmtProj->execute();
+    $projects_res = $stmtProj->get_result();
+    $projects = $projects_res->fetch_all(MYSQLI_ASSOC);
+
 } catch (mysqli_sql_exception $e) {
     die("Database Error: " . $e->getMessage());
 }

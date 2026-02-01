@@ -43,12 +43,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     $_SESSION['last_activity'] = time();
 
                     // Redirect based on role or to a general dashboard
-                    if($account['user_Role'] == 'admin')
+                    if($_SESSION['role'] == 'admin' || $_SESSION['role'] == 'superadmin')
                     {
                         header("Location: /QTrace-Website/dashboard");
                         exit();
                     }else{
-                        header("Location: /QTrace-Website/home?role={$_SESSION['user_ID']}");
+                        header("Location: /QTrace-Website/home?role={$_SESSION['user_Role']}");
                         exit();
                     }
                 } else {

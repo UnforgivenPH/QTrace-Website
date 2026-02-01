@@ -20,7 +20,7 @@ $_SESSION['last_activity'] = time();
 // 3. Page Access Control
 $current_page = basename($_SERVER['PHP_SELF']);
 
-if ($_SESSION['role'] != 'admin') {
+if ($_SESSION['role'] != 'admin' && $_SESSION['role'] != 'superadmin') {
     // Admin cannot access home.php
     header("Location: /QTrace-Website/home");
     exit();

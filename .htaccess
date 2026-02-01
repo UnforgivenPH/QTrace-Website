@@ -46,6 +46,8 @@ RewriteRule ^view-project$ pages/admin/view_project.php [NC,L]
 
 RewriteRule ^audit-list$ pages/admin/list_audit.php [NC,L]
 
+RewriteRule ^backup-list$ pages/admin/list_backups.php [NC,L]
+
 
 
 #For Public pages

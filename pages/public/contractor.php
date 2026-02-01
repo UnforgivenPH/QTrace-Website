@@ -136,12 +136,25 @@
                                         </div>
 
                                         <div class="d-flex gap-2 mb-3">
+                                            <?php
+                                                // Get active projects count
+                                                $active_sql = "SELECT COUNT(*) as active_count FROM projects_table WHERE Contractor_ID = " . (int)$row['Contractor_Id'] . " AND Project_Status IN ('Ongoing', 'Planning', 'Delayed')";
+                                                $active_result = $conn->query($active_sql);
+                                                $active_row = $active_result->fetch_assoc();
+                                                $active_count = $active_row['active_count'];
+                                                
+                                                // Get completed projects count
+                                                $completed_sql = "SELECT COUNT(*) as completed_count FROM projects_table WHERE Contractor_ID = " . (int)$row['Contractor_Id'] . " AND Project_Status = 'Completed'";
+                                                $completed_result = $conn->query($completed_sql);
+                                                $completed_row = $completed_result->fetch_assoc();
+                                                $completed_count = $completed_row['completed_count'];
+                                            ?>
                                             <div class="stat-badge stat-active">
-                                                <div class="fw-bold h5 mb-0">--</div>
+                                                <div class="fw-bold h5 mb-0"><?= htmlspecialchars($active_count) ?></div>
                                                 <small class="small" style="font-size: 0.7rem;">Active Projects</small>
                                             </div>
                                             <div class="stat-badge stat-completed">
-                                                <div class="fw-bold h5 mb-0">--</div>
+                                                <div class="fw-bold h5 mb-0"><?= htmlspecialchars($completed_count) ?></div>
                                                 <small class="small" style="font-size: 0.7rem;">Completed</small>
                                             </div>
                                         </div>
@@ -151,7 +164,7 @@
                                             <div class="small text-muted text-truncate"><i class="bi bi-envelope me-2"></i><?= htmlspecialchars($row['Company_Email_Address']) ?></div>
                                         </div>
 
-                                        <div class="mb-4" style="min-height: 60px;">
+                                        <div class="mb-4" style="width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                             <small class="text-muted d-block mb-1 fw-bold" style="font-size: 0.65rem;">EXPERTISE:</small>
                                             <?php 
                                                 if($row['skills']) {

@@ -133,6 +133,11 @@
                                                                 onclick='viewDiff(<?php echo json_encode($log['old_values']); ?>, <?php echo json_encode($log['new_values']); ?>)'>
                                                             <i class="bi bi-eye"></i>
                                                         </button>
+                                                        <button class="btn btn-sm btn-outline-warning" 
+                                                                onclick='confirmUndo(<?php echo $log["audit_log_id"]; ?>, "<?php echo htmlspecialchars($log["resource_type"]); ?>", "<?php echo htmlspecialchars($log["action"]); ?>")' 
+                                                                title="Undo this action">
+                                                            <i class="bi bi-arrow-counterclockwise"></i>
+                                                        </button>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -235,6 +240,31 @@ function viewDiff(oldVal, newVal) {
     document.getElementById('newJson').textContent = formatJSON(newVal);
     
     modal.show();
+}
+
+function confirmUndo(auditId, resourceType, action) {
+    const message = `Are you sure you want to undo this ${action} action on ${resourceType}? This will restore the old values.`;
+    if (confirm(message)) {
+        console.log('Submitting undo for audit ID:', auditId);
+        
+        // Create form element
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = '/QTrace-Website/database/controllers/undo_audit_action.php';
+        form.style.display = 'none';
+        
+        // Create input
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'audit_id';
+        input.value = auditId;
+        
+        form.appendChild(input);
+        document.body.appendChild(form);
+        
+        console.log('Form created, submitting...');
+        form.submit();
+    }
 }
 </script>
     <!-- Reusable Script -->
