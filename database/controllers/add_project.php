@@ -163,7 +163,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $auditService->log($userId, 'CREATE', 'Project', $project_id, null, $newProjectVals);
 
         $msg = urlencode("Project added successfully.");
-        header("Location: /QTrace-Website/project-list?status=danger&msg=$msg"."&search=&status=&contractor_id=");
+        header("Location: /QTrace-Website/project-list?status=success&msg=$msg"."&search=&status=&contractor_id=");
         exit();
 
     } catch (Exception $e) {

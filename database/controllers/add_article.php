@@ -122,17 +122,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $auditService->log($userId, 'CREATE', 'Article', $article_id, null, $newArticleVals);
         
-        $_SESSION['success_message'] = 'Article added successfully!';
-        header('Location: /QTrace-Website/list-article?status=succes');
+        $msg = urlencode("Article added successfully!");
+        header("Location: /QTrace-Website/list-article?status=success&msg=$msg"."&search=&status=&type=&barangay=");
         exit();
     } else {
-        $_SESSION['error'] = 'Error adding article. Please try again.';
-        error_log('Article insert error: ' . $conn->error);
-        header('Location: /QTrace-Website/add-article');
+        $msg = urlencode("Error updating article.");
+        header("Location: /QTrace-Website/list-article?status=danger&msg=$msg"."&search=&status=&type=&barangay=");
         exit();
     }
 } else {
-    header('Location: /QTrace-Website/add-article');
+    $msg = urlencode("Invalid request method.");
+    header("Location: /QTrace-Website/list-article?status=danger&msg=$msg"."&search=&status=&type=&barangay=");
     exit();
 }
 ?>

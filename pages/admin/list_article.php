@@ -59,15 +59,6 @@
                             </div>
                         </div>
 
-                        <?php if(isset($_SESSION['success_message'])): ?>
-                            <div class="alert alert-success alert-dismissible fade show" role="alert">
-                                <i class="bi bi-check-circle me-2"></i>
-                                <?= $_SESSION['success_message']; ?>
-                                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-                            </div>
-                            <?php unset($_SESSION['success_message']); ?>
-                        <?php endif; ?>
-
                         <!-- Filter Section -->
                         <div class="card border-0 shadow-sm mb-4">
                             <div class="card-body">
@@ -216,9 +207,11 @@
                 </main>
             </div>
         </div>
+        <?php include('../../components/toast.php'); ?>
 
         <!-- Scripts -->
         <script src="/QTrace-Website/assets/js/mouseMovement.js"></script>
+        <script src="/QTrace-Website/assets/js/toast.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
     </body>
 </html>

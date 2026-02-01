@@ -87,9 +87,10 @@ if ($conn->query($update_sql) === TRUE) {
     header('Location: /QTrace-Website/list-article');
     exit();
 } else {
-    $_SESSION['error'] = 'Error updating article: ' . $conn->error;
+    $_SESSION['error'] = ': ' . $conn->error;
     error_log('Database error: ' . $conn->error);
-    header('Location: /QTrace-Website/list-article');
+    $msg = urlencode("Error updating article.");
+    header("Location: /QTrace-Website/list-article?status=danger&msg=$msg"."&search=&status=&type=&barangay=");
     exit();
 }
 ?>
