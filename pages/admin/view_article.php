@@ -43,7 +43,7 @@
                     <div class="container-fluid">
                         <nav class="mb-3" aria-label="breadcrumb">
                             <ol class="breadcrumb m-0">
-                                <li class="breadcrumb-item"><a href="/QTrace-Website/dashboard">Admin</a></li>
+                                <li class="breadcrumb-item"><a href="/QTrace-Website/dashboard">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="/QTrace-Website/list-article">Articles</a></li>
                                 <li class="breadcrumb-item active" aria-current="page"><?= htmlspecialchars($article['ProjectDetails_Title']) ?></li>
                             </ol>

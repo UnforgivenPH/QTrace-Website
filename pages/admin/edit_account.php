@@ -65,7 +65,7 @@
 							<!-- Breadcrumb -->
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item">
-									<a href="/QTrace-Website/dashboard">Home</a>
+									<a href="/QTrace-Website/dashboard">Dashboard</a>
 								</li>
 								<li class="breadcrumb-item"><a href="/QTrace-Website/account-list">Account List</a></li>
 								<li class="breadcrumb-item"><a href="/QTrace-Website/pages/admin/view_account?id=<?= htmlspecialchars($user_id) ?>">Account Details</a></li>

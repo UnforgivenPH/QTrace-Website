@@ -28,6 +28,14 @@
             .badge { font-size: 0.75rem; padding: 0.25rem 0.5rem; }
             .filter-section { background: #fff; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
             .action-btn { padding: 0.25rem 0.5rem; font-size: 0.875rem; }
+            .pagination .page-link {
+                color: #003366;
+            }
+            .pagination a.page-link:hover {
+                background-color: #003366;
+                color: white;
+                border-color: #003366;
+            }
         </style>
     </head>
     <body style="background-color: var(--bg-light);">
@@ -42,7 +50,7 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="/QTrace-Website/dashboard">Home</a>
+                                    <a href="/QTrace-Website/dashboard">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item active">Articles</li>
                             </ol>

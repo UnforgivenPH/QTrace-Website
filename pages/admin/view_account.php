@@ -78,7 +78,7 @@
                     <nav aria-label="breadcrumb">
                         <!-- Breadcrumb -->
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"> <a href="/QTrace-Website/dashboard">Home</a> </li>
+                            <li class="breadcrumb-item"> <a href="/QTrace-Website/dashboard">Dashboard</a> </li>
                             <li class="breadcrumb-item"><a href="/QTrace-Website/account-list">Account List</a></li>
                             <li class="breadcrumb-item active">Account Details</li>
                         </ol>

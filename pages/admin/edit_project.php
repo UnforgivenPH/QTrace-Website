@@ -86,7 +86,7 @@
 							<!-- Breadcrumb -->
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item">
-									<a href="/QTrace-Website/dashboard">Home</a>
+									<a href="/QTrace-Website/dashboard">Dashboard</a>
 								</li>
 								<li class="breadcrumb-item"><a href="/QTrace-Website/project-list">Project List</a></li>
 								<li class="breadcrumb-item"><a href="/QTrace-Website/pages/admin/view_project?id=<?= htmlspecialchars($project_id) ?>">Project Details</a></li>

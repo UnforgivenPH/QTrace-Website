@@ -54,7 +54,7 @@
                     <nav aria-label="breadcrumb">
                         <!-- Breadcrumb -->
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"> <a href="/QTrace-Website/dashboard">Home</a> </li>
+                            <li class="breadcrumb-item"> <a href="/QTrace-Website/dashboard">Dashboard</a> </li>
                             <li class="breadcrumb-item"><a href="/QTrace-Website/contractor-list?id=<?= $contractor_id ?>">Contractor List</a></li>
                             <li class="breadcrumb-item active">Contractor Details</li>
                         </ol>

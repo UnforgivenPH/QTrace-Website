@@ -20,6 +20,16 @@
     
     <link rel="stylesheet" href="/QTrace-Website/assets/css/styles.css" />
   </head>
+  <style>
+        .pagination .page-link {
+                color: #003366;
+            }
+        .pagination a.page-link:hover {
+                background-color: #003366;
+                color: white;
+                border-color: #003366;
+            }
+    </style>
   <body>
     <div class="app-container">
         <?php include('../../components/header.php'); ?>
@@ -31,7 +41,7 @@
                 <div class="container-fluid">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/QTrace-Website/dashboard">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/QTrace-Website/dashboard">Dashboard</a></li>
                             <li class="breadcrumb-item active">Audit Logs</li>
                         </ol>
                     </nav>

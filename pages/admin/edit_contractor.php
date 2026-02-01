@@ -76,7 +76,7 @@
                 <nav aria-label="breadcrumb">
                 <!-- Breadcrumb -->
                             <ol class="breadcrumb">
-                                <li class="breadcrumb-item"> <a href="/QTrace-Website/dashboard">Home</a> </li>
+                                <li class="breadcrumb-item"> <a href="/QTrace-Website/dashboard">Dashboard</a> </li>
                                 <li class="breadcrumb-item"><a href="/QTrace-Website/contractor-list">Contractor List</a></li>
                                 <li class="breadcrumb-item"><a href="/QTrace-Website/pages/admin/view_contractor.php?id=<?= htmlspecialchars($contractor['Contractor_Id']) ?>">Contractor Details</a></li>
                                 <li class="breadcrumb-item active">Edit Contractor</li>
