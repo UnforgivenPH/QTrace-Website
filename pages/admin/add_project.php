@@ -92,7 +92,7 @@ if ($contractorStmt) {
               <!-- Breadcrumb -->
               <ol class="breadcrumb">
                 <li class="breadcrumb-item">
-                  <a href="/QTrace-Website/dashboard">Home</a>
+                  <a href="/QTrace-Website/dashboard">Dashboard</a>
                 </li>
                 <li class="breadcrumb-item active">Add New Project</li>
               </ol>
@@ -257,7 +257,7 @@ if ($contractorStmt) {
                     </div>
                     <div class="d-flex justify-content-between">
                         <button type="button" class="btn btn-light prev-btn">Back</button>
-                        <button type="button" class="btn btn-warning fw-medium  bg-color-primary px-4 next-btn">Next Step</button>
+                        <button type="button" class="btn bg-color-primary text-light px-4 next-btn">Next Step</button>
                     </div>
                   </div>
 

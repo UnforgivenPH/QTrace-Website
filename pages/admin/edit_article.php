@@ -83,7 +83,7 @@
                                 <p class="text-muted m-0">Update article entry.</p>
                                 <nav class="mt-2" aria-label="breadcrumb">
                                     <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a href="/QTrace-Website/dashboard">Admin</a></li>
+                                        <li class="breadcrumb-item"><a href="/QTrace-Website/dashboard">Dashboard</a></li>
                                         <li class="breadcrumb-item"><a href="/QTrace-Website/list-article">Articles</a></li>
                                         <li class="breadcrumb-item active" aria-current="page">Edit Article</li>
                                     </ol>

@@ -60,7 +60,7 @@
                             <!-- Breadcrumb -->
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="/QTrace-Website/dashboard">Home</a>
+                                    <a href="/QTrace-Website/dashboard">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item active">Articles</li>
                             </ol>

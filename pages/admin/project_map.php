@@ -108,7 +108,7 @@
                 <div class="container-fluid">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="/QTrace-Website/dashboard">Home</a></li>
+                            <li class="breadcrumb-item"><a href="/QTrace-Website/dashboard">Dashboard</a></li>
                             <li class="breadcrumb-item active">Project Map</li>
                         </ol>
                     </nav>

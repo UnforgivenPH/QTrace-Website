@@ -57,6 +57,14 @@
                 align-items: center;
                 justify-content: center;
             }
+            .pagination .page-link {
+                color: #003366;
+            }
+            .pagination a.page-link:hover {
+                background-color: #003366;
+                color: white;
+                border-color: #003366;
+            }
         </style>
     </head>
     <body>
@@ -72,7 +80,7 @@
                             <!-- Breadcrumb -->
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item">
-                                    <a href="/QTrace-Website/dashboard">Home</a>
+                                    <a href="/QTrace-Website/dashboard">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item active">Report List</li>
                             </ol>
