@@ -29,8 +29,8 @@
 		<!-- SEO -->
 		<meta name="description" content="Edit an existing project in the QTRACE system."/>
 		<meta name="author" content="Confractus" />
-		<link rel="icon" type="image/png" sizes="16x16" href="" />
-		<title>QTrace - Edit Project</title>
+		<link rel="icon" type="image/png" sizes="16x16" href="/QTrace-Website/assets/image/QTraceLogo.png">
+		<title>QTrace - Edit Project | <?php echo htmlspecialchars($project['Project_Title']); ?></title>
 		<!-- Bootstrap CSS Link-->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

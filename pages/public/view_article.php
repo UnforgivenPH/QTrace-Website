@@ -19,6 +19,7 @@
         <meta name="description" content="Article detail view.">
         <meta name="author" content="ai-Deib">
         <title>QTrace - <?= htmlspecialchars($article['ProjectDetails_Title']) ?></title>
+        <link rel="icon" type="image/png" sizes="16x16" href="/QTrace-Website/assets/image/QTraceLogo.png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
         <link rel="stylesheet" href="/QTrace-Website/assets/css/styles.css">

@@ -15,7 +15,7 @@
     <!-- SEO -->
     <meta name="description" content="Interactive map displaying all ongoing and completed projects in Quezon City for enhanced transparency and monitoring."/>
     <meta name="author" content="Confractus" />
-    <link rel="icon" type="image/png" sizes="16x16" href="" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/QTrace-Website/assets/image/QTraceLogo.png">
     <title>QTrace - Project Map</title>
     <!-- Bootstrap CSS Link-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>

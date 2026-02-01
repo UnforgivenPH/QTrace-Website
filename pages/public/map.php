@@ -15,7 +15,7 @@
     <!-- SEO -->
     <meta name="description" content="Welcome to QTRACE, Quezon City's official platform for monitoring government projects and ensuring transparency."/>
     <meta name="author" content="Confractus" />
-    <link rel="icon" type="image/png" sizes="16x16" href="" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/QTrace-Website/assets/image/QTraceLogo.png">
     <title>QTrace - Home</title>
     <!-- Bootstrap CSS Link-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>

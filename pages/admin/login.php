@@ -11,7 +11,7 @@
         <!-- SEO -->
         <meta name="description" content="Login page for the QTRACE system."/>
         <meta name="author" content="Confractus" />
-        <link rel="icon" type="image/png" sizes="16x16" href="" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/QTrace-Website/assets/image/QTraceLogo.png">
         <title>QTrace - Login</title>
         <!-- Bootstrap CSS Link-->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
