@@ -1,5 +1,5 @@
 <?php 
-    $page_name = 'view_article'; 
+    $page_name = 'articleList';
     include('../../database/connection/security.php');
     require('../../database/controllers/get_article_detail.php');
     
@@ -32,7 +32,7 @@
             .article-content p { margin-bottom: 1rem; }
         </style>
     </head>
-    <body style="background-color: var(--bg-light);">
+    <body>
         <div class="app-container">
             <?php include('../../components/header.php'); ?>
 
@@ -41,16 +41,23 @@
 
                 <main class="main-view">
                     <div class="container-fluid">
-                        <nav class="mb-3" aria-label="breadcrumb">
-                            <ol class="breadcrumb m-0">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="/QTrace-Website/dashboard">Dashboard</a></li>
                                 <li class="breadcrumb-item"><a href="/QTrace-Website/list-article">Articles</a></li>
                                 <li class="breadcrumb-item active" aria-current="page"><?= htmlspecialchars($article['ProjectDetails_Title']) ?></li>
                             </ol>
                         </nav>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <h2 class="fw-bold">Article Details</h2>
+                                <p>Review article content and project information</p>
+                            </div>
+                        </div>
 
-                        <article class="card border-0 shadow-sm">
-                            <div class="card-body p-4">
+                        <div class="row g-3">
+                            <div class="col-12 card border-0 shadow-sm p-3">
+                                <article>
                                 <!-- Article Header -->
                                 <header class="mb-4">
                                     <span class="badge bg-info text-dark mb-2"><?= htmlspecialchars($article['article_type']) ?></span>
@@ -101,7 +108,7 @@
                                         <h5 class="fw-bold">Project Information</h5>
                                         <p class="mb-2"><strong>Project:</strong> <?= htmlspecialchars($article['ProjectDetails_Title']) ?></p>
                                         <p class="mb-2"><strong>Budget:</strong> <?= formatBudget($article['ProjectDetails_Budget']) ?></p>
-                                        <p><a href="/QTrace-Website/view-project?id=<?= $article['Project_ID'] ?>" class="btn btn-sm btn-outline-primary">View Project</a></p>
+                                        <p><a href="/QTrace-Website/view-project?id=<?= $article['Project_ID'] ?>" class="btn btn-outline-primary">View Project</a></p>
                                     </div>
                                     <div class="col-md-6">
                                         <h5 class="fw-bold">Article Details</h5>
@@ -112,21 +119,21 @@
                                         <p class="mb-2"><strong>Type:</strong> <?= htmlspecialchars($article['article_type']) ?></p>
                                     </div>
                                 </div>
+                                </article>
                             </div>
-                        </article>
+                        </div>
 
                         <!-- Navigation & Actions -->
-                        <div class="d-flex gap-2 mt-4 justify-content-between">
-                            <a href="/QTrace-Website/list-article" class="btn btn-outline-secondary">
-                                <i class="bi bi-arrow-left me-1"></i> Back to Articles
-                            </a>
-                            <div class="d-flex gap-2">
-                                <a href="/QTrace-Website/edit-article?id=<?= $article['article_ID'] ?>" class="btn btn-primary">
-                                    <i class="bi bi-pencil-square me-1"></i> Edit Article
-                                </a>
-                                <button class="btn btn-warning" onclick="archiveArticle(<?= $article['article_ID'] ?>)">
-                                    <i class="bi bi-archive me-1"></i> Archive
-                                </button>
+                        <div class="row mt-4 g-3">
+                            <div class="col-12">
+                                <div class="d-flex gap-2">
+                                    <a href="/QTrace-Website/edit-article?id=<?= $article['article_ID'] ?>" class="btn bg-color-primary text-light w-100 fw-medium">
+                                        <i class="bi bi-pencil-square me-1"></i> Edit Article
+                                    </a>
+                                    <button class="btn btn-outline-warning w-100 fw-medium" onclick="archiveArticle(<?= $article['article_ID'] ?>)">
+                                        <i class="bi bi-archive me-1"></i> Archive
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>

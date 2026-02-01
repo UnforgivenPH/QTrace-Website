@@ -1,5 +1,5 @@
 <?php 
-    $page_name = 'Add Article'; 
+    $page_name = 'addArticle'; 
     include('../../database/connection/security.php');
     require('../../database/connection/connection.php');
     
@@ -32,25 +32,24 @@
             .tab-content {border: 1px solid #dee2e6;border-top: none;padding: 1rem;}
         </style>
     </head>
-    <body style="background-color: var(--bg-light);">
+    <body>
         <div class="app-container">
             <?php include('../../components/header.php'); ?>
             <div class="content-area">
                 <?php include('../../components/sideNavigation.php'); ?>
                 <main class="main-view">
                     <div class="container-fluid">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div>
-                                <div class="text-uppercase small text-muted fw-bold">Articles</div>
-                                <h1 class="h4 fw-bold m-0">Add Article</h1>
-                                <p class="text-muted m-0">Create an entry via news link.</p>
-                                <nav class="mt-2" aria-label="breadcrumb">
-                                    <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a href="/QTrace-Website/dashboard">Dashboard</a></li>
-                                        <li class="breadcrumb-item"><a href="/QTrace-Website/list-article">Articles</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Add Article</li>
-                                    </ol>
-                                </nav>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/QTrace-Website/dashboard">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="/QTrace-Website/list-article">Articles</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Add Article</li>
+                            </ol>
+                        </nav>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <h2 class="fw-bold">Add Article</h2>
+                                <p>Create an entry via news link.</p>
                             </div>
                         </div>
 
@@ -61,12 +60,12 @@
                             </div>
                         <?php endif; ?>
 
-                        <div class="card border-0 shadow-sm">
-                            <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-12 card border-0 shadow-sm p-3">
                                 <form class="row g-3" action="/QTrace-Website/database/controllers/add_article.php" method="post" enctype="multipart/form-data">
                                     <div class="col-12 col-md-6">
-                                        <label class="form-label small text-muted">Project <span class="text-danger">*</span></label>
-                                        <select class="form-select form-select-sm" name="project" required>
+                                        <label class="form-label fw-medium color-black">Project <span class="text-danger">*</span></label>
+                                        <select class="form-select" name="project" required>
                                             <option value="">-- Select Project --</option>
                                             <?php while($proj = $projects->fetch_assoc()): ?>
                                                 <option value="<?= $proj['Project_ID'] ?>"><?= htmlspecialchars($proj['ProjectDetails_Title']) ?></option>
@@ -74,8 +73,8 @@
                                         </select>
                                     </div>
                                     <div class="col-12 col-md-3">
-                                        <label class="form-label small text-muted">Type</label>
-                                        <select class="form-select form-select-sm" name="report_type">
+                                        <label class="form-label fw-medium color-black">Type</label>
+                                        <select class="form-select" name="report_type">
                                             <option value="Article">Article</option>
                                             <option value="Update">Update</option>
                                             <option value="News">News</option>
@@ -83,18 +82,18 @@
                                         </select>
                                     </div>
                                     <div class="col-12 col-md-3">
-                                        <label class="form-label small text-muted">Status</label>
-                                        <select class="form-select form-select-sm" name="status">
+                                        <label class="form-label fw-medium color-black">Status</label>
+                                        <select class="form-select" name="status">
                                             <option value="Draft">Draft</option>
                                             <option value="Published">Published</option>
                                         </select>
                                     </div>
                                     <div class="col-12">
-                                        <label class="form-label small text-muted">Description / Content <span class="text-danger">*</span></label>
-                                        <textarea class="form-control form-control-sm" name="description" rows="4" placeholder="Enter article content or description" required></textarea>
+                                        <label class="form-label fw-medium color-black">Description / Content <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" name="description" rows="4" placeholder="Enter article content or description" required></textarea>
                                     </div>
                                     <div class="col-12">
-                                        <label class="form-label small text-muted">Article Image</label>
+                                        <label class="form-label fw-medium color-black">Article Image</label>
                                         <ul class="nav nav-tabs border-bottom" id="imageTab" role="tablist">
                                             <li class="nav-item" role="presentation">
                                                 <button class="nav-link active" id="upload-tab" data-bs-toggle="tab" data-bs-target="#upload" type="button" role="tab" aria-controls="upload" aria-selected="true">
@@ -110,21 +109,25 @@
                                         <div class="tab-content border-start border-end border-bottom" id="imageTabContent">
                                             <div class="tab-pane fade show active" id="upload" role="tabpanel" aria-labelledby="upload-tab">
                                                 <div class="mt-3">
-                                                    <input type="file" class="form-control form-control-sm" name="article_image" accept="image/*" />
+                                                    <input type="file" class="form-control" name="article_image" accept="image/*" />
                                                     <small class="text-muted d-block mt-2">Supported: JPG, PNG, GIF, WebP (Max 5MB)</small>
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="url-link" role="tabpanel" aria-labelledby="url-tab">
                                                 <div class="mt-3">
-                                                    <input type="url" class="form-control form-control-sm" name="photo_url" placeholder="https://example.com/image.jpg" />
+                                                    <input type="url" class="form-control" name="photo_url" placeholder="https://example.com/image.jpg" />
                                                     <small class="text-muted d-block mt-2">Direct link to an image for this article</small>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 d-flex gap-2 justify-content-end">
-                                        <a class="btn btn-outline-secondary btn-sm" href="/QTrace-Website/list-article">Cancel</a>
-                                        <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-plus-lg me-1"></i> Save</button>
+                                    <div class="row mt-4 g-3">
+                                        <div class="col-6">
+                                            <a class="btn btn-outline-secondary w-100 fw-medium" href="/QTrace-Website/list-article">Cancel</a>
+                                        </div>
+                                        <div class="col-6">
+                                            <button type="submit" class="btn bg-color-primary text-light w-100 fw-medium"><i class="bi bi-plus-lg me-1"></i> Save</button>
+                                        </div>
                                     </div>
                                 </form>
                             </div>

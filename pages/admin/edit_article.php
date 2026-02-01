@@ -1,5 +1,5 @@
 <?php 
-    $page_name = 'Edit Article'; 
+    $page_name = 'articleList'; 
     include('../../database/connection/security.php');
     require('../../database/connection/connection.php');
     
@@ -69,25 +69,24 @@
             }
         </style>
     </head>
-    <body style="background-color: var(--bg-light);">
+    <body>
         <div class="app-container">
             <?php include('../../components/header.php'); ?>
             <div class="content-area">
                 <?php include('../../components/sideNavigation.php'); ?>
                 <main class="main-view">
                     <div class="container-fluid">
-                        <div class="d-flex justify-content-between align-items-center mb-3">
-                            <div>
-                                <div class="text-uppercase small text-muted fw-bold">Articles</div>
-                                <h1 class="h4 fw-bold m-0">Edit Article</h1>
-                                <p class="text-muted m-0">Update article entry.</p>
-                                <nav class="mt-2" aria-label="breadcrumb">
-                                    <ol class="breadcrumb m-0">
-                                        <li class="breadcrumb-item"><a href="/QTrace-Website/dashboard">Dashboard</a></li>
-                                        <li class="breadcrumb-item"><a href="/QTrace-Website/list-article">Articles</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Edit Article</li>
-                                    </ol>
-                                </nav>
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/QTrace-Website/dashboard">Dashboard</a></li>
+                                <li class="breadcrumb-item"><a href="/QTrace-Website/list-article">Articles</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Edit Article</li>
+                            </ol>
+                        </nav>
+                        <div class="row mb-2">
+                            <div class="col">
+                                <h2 class="fw-bold">Edit Article</h2>
+                                <p>Update article entry.</p>
                             </div>
                         </div>
 
@@ -98,14 +97,14 @@
                             </div>
                         <?php endif; ?>
 
-                        <div class="card border-0 shadow-sm">
-                            <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-12 card border-0 shadow-sm p-3">
                                 <form class="row g-3" action="/QTrace-Website/database/controllers/edit_article.php" method="post" enctype="multipart/form-data">
                                     <input type="hidden" name="article_id" value="<?= $article['article_ID'] ?>">
                                     
                                     <div class="col-12 col-md-6">
-                                        <label class="form-label small text-muted">Project <span class="text-danger">*</span></label>
-                                        <select class="form-select form-select-sm" name="project" required>
+                                        <label class="form-label fw-medium color-black">Project <span class="text-danger">*</span></label>
+                                        <select class="form-select" name="project" required>
                                             <option value="">-- Select Project --</option>
                                             <?php 
                                             $projects->data_seek(0);
@@ -118,8 +117,8 @@
                                         </select>
                                     </div>
                                     <div class="col-12 col-md-3">
-                                        <label class="form-label small text-muted">Type</label>
-                                        <select class="form-select form-select-sm" name="report_type">
+                                        <label class="form-label fw-medium color-black">Type</label>
+                                        <select class="form-select" name="report_type">
                                             <option value="Article" <?= $article['article_type'] == 'Article' ? 'selected' : '' ?>>Article</option>
                                             <option value="Update" <?= $article['article_type'] == 'Update' ? 'selected' : '' ?>>Update</option>
                                             <option value="News" <?= $article['article_type'] == 'News' ? 'selected' : '' ?>>News</option>
@@ -127,18 +126,18 @@
                                         </select>
                                     </div>
                                     <div class="col-12 col-md-3">
-                                        <label class="form-label small text-muted">Status</label>
-                                        <select class="form-select form-select-sm" name="status">
+                                        <label class="form-label fw-medium color-black">Status</label>
+                                        <select class="form-select" name="status">
                                             <option value="Draft" <?= $article['article_status'] == 'Draft' ? 'selected' : '' ?>>Draft</option>
                                             <option value="Published" <?= $article['article_status'] == 'Published' ? 'selected' : '' ?>>Published</option>
                                         </select>
                                     </div>
                                     <div class="col-12">
-                                        <label class="form-label small text-muted">Description / Content <span class="text-danger">*</span></label>
-                                        <textarea class="form-control form-control-sm" name="description" rows="4" placeholder="Enter article content or description" required><?= htmlspecialchars($article['article_description']) ?></textarea>
+                                        <label class="form-label fw-medium color-black">Description / Content <span class="text-danger">*</span></label>
+                                        <textarea class="form-control" name="description" rows="20" placeholder="Enter article content or description" required><?= htmlspecialchars($article['article_description']) ?></textarea>
                                     </div>
                                     <div class="col-12">
-                                        <label class="form-label small text-muted">Article Image</label>
+                                        <label class="form-label fw-medium color-black">Article Image</label>
                                         <?php if(!empty($article['article_photo_url'])): ?>
                                             <div class="mb-3">
                                                 <small class="text-muted d-block mb-2">Current Image:</small>
@@ -160,21 +159,25 @@
                                         <div class="tab-content border-start border-end border-bottom" id="imageTabContent">
                                             <div class="tab-pane fade show active" id="upload" role="tabpanel" aria-labelledby="upload-tab">
                                                 <div class="mt-3">
-                                                    <input type="file" class="form-control form-control-sm" name="article_image" accept="image/*" />
+                                                    <input type="file" class="form-control" name="article_image" accept="image/*" />
                                                     <small class="text-muted d-block mt-2">Supported: JPG, PNG, GIF, WebP (Max 5MB) - Leave empty to keep current image</small>
                                                 </div>
                                             </div>
                                             <div class="tab-pane fade" id="url-link" role="tabpanel" aria-labelledby="url-tab">
                                                 <div class="mt-3">
-                                                    <input type="url" class="form-control form-control-sm" name="photo_url" placeholder="https://example.com/image.jpg" value="<?= !strpos($article['article_photo_url'], '/uploads/') ? htmlspecialchars($article['article_photo_url']) : '' ?>" />
+                                                    <input type="url" class="form-control" name="photo_url" placeholder="https://example.com/image.jpg" value="<?= !strpos($article['article_photo_url'], '/uploads/') ? htmlspecialchars($article['article_photo_url']) : '' ?>" />
                                                     <small class="text-muted d-block mt-2">Direct link to an image for this article - Leave empty to keep current image</small>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-12 d-flex gap-2 justify-content-end">
-                                        <a class="btn btn-outline-secondary btn-sm" href="/QTrace-Website/list-article">Cancel</a>
-                                        <button type="submit" class="btn btn-primary btn-sm"><i class="bi bi-pencil-square me-1"></i> Update</button>
+                                    <div class="row mt-4 g-3">
+                                        <div class="col-6">
+                                            <a class="btn btn-outline-secondary w-100 fw-medium" href="/QTrace-Website/list-article">Cancel</a>
+                                        </div>
+                                        <div class="col-6">
+                                            <button type="submit" class="btn bg-color-primary text-light w-100 fw-medium"><i class="bi bi-pencil-square me-1"></i> Update</button>
+                                        </div>
                                     </div>
                                 </form>
                             </div>

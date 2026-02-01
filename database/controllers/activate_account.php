@@ -32,7 +32,7 @@ $stmt->execute();
 
 // Log the activation to audit trail
 $auditService = new AuditService($conn);
-$currentUserId = $_SESSION['user_id'] ?? null;
+$currentUserId = $_SESSION['user_ID'] ?? null;
 
 $oldVals = ['user_status' => $oldStatus];
 $newVals = ['user_status' => 'active'];

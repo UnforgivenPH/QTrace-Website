@@ -118,9 +118,16 @@
                                                     <a href="/QTrace-Website/view-account?id=<?= $row['user_ID'] ?>" class="btn btn-sm btn-outline-primary" title="View">
                                                         <i class="bi bi-eye"></i>
                                                     </a>
+                                                    <?php
+                                                        if($row['user_status'] != 'inactive'){
+                                                    ?>
                                                     <button class="btn btn-sm" onclick="confirmDisable(<?= $row['user_ID'] ?>)" title="Disable" style="background-color: transparent; border: 1px solid #c2180c; color: #c2180c;" onmouseover="this.style.backgroundColor='#871810'; this.style.borderColor='#871810'; this.style.color='#ffffff'; this.querySelector('i').style.color='#ffffff';" onmouseout="this.style.backgroundColor='transparent'; this.style.borderColor='#c2180c'; this.style.color='#c2180c'; this.querySelector('i').style.color='#c2180c';">
                                                         <i class="bi bi-x-circle" style="color:#c2180c;"></i>
                                                     </button>
+                                                    <?php
+                                                        }
+                                                    ?>
+                                                    
                                                 </div>
                                             </td>
                                         </tr>

@@ -103,11 +103,13 @@
                             <table class="table table-hover align-middle mb-0">
                                 <thead class="table-light">
                                     <tr>
+                                        <th>ID</th>
                                         <th>Company</th>
                                         <th>Representative</th>
                                         <th>Email</th>
                                         <th>Expertise</th>
                                         <th>Exp.</th>
+                                        <th>Status</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
@@ -115,6 +117,7 @@
                                     <?php if ($result->num_rows > 0): ?>
                                         <?php while($row = $result->fetch_assoc()): ?>
                                         <tr>
+                                            <td class="fw-bold" >Cont-<?= str_pad($row['Contractor_Id'], 4, '0', STR_PAD_LEFT) ?></td>
                                             <td>
                                                 <div class="d-flex align-items-center">
                                                     <?php if($row['Contractor_Logo_Path']): ?>
@@ -131,7 +134,7 @@
                                             <td>
                                                 <small class="d-block"><?= htmlspecialchars($row['Company_Email_Address']) ?></small>
                                             </td>
-                                            <td style="max-width: 250px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                            <td style="max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
                                                 <?php 
                                                 $skills = explode(', ', $row['skills']);
                                                 foreach($skills as $skill) {
@@ -141,9 +144,26 @@
                                             </td>
                                             <td><span class="badge bg-secondary"><?= $row['Years_Of_Experience'] ?> yrs</span></td>
                                             <td>
+                                                <?php 
+                                                    $statusClass = 'bg-secondary';
+                                                    if($row['Contractor_Status'] == 'active') $statusClass = 'bg-success';
+                                                    if($row['Contractor_Status'] == 'inactive') $statusClass = 'bg-danger';
+                                                ?>
+                                                <span class="badge <?= $statusClass ?>">
+                                                    <?= htmlspecialchars($row['Contractor_Status']) ?>
+                                                </span>
+                                            </td>
+                                            <td class="text-center">
                                                 <div class="btn-group">
                                                     <a href="/QTrace-Website/view-contractor?id=<?= $row['Contractor_Id'] ?>" class="btn btn-sm btn-outline-primary"><i class="bi bi-eye"></i></a>
+                                                    <?php
+                                                        if($row['Contractor_Status'] != 'inactive'){
+                                                    ?>
                                                     <button class="btn btn-sm" onclick="confirmDisable(<?= $row['Contractor_Id'] ?>)" title="Disable" style="background-color: transparent; border: 1px solid #c2180c; color: #c2180c;" onmouseover="this.style.backgroundColor='#871810'; this.style.borderColor='#871810'; this.style.color='#ffffff'; this.querySelector('i').style.color='#ffffff';" onmouseout="this.style.backgroundColor='transparent'; this.style.borderColor='#c2180c'; this.style.color='#c2180c'; this.querySelector('i').style.color='#c2180c';"><i class="bi bi-x-circle" style="color:#c2180c;"></i></button>
+                                                    <?php
+                                                        }
+                                                    ?>
+                                                    
                                                 </div>
                                             </td>
                                         </tr>

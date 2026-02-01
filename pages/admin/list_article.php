@@ -1,5 +1,5 @@
 <?php 
-    $page_name = 'project_articles'; 
+    $page_name = 'articleList'; 
     include('../../database/connection/security.php');
     require('../../database/controllers/get_admin_articles_list.php');
     
@@ -23,11 +23,6 @@
         <!-- Project Styles -->
         <link rel="stylesheet" href="/QTrace-Website/assets/css/styles.css">
         <style>
-            .table-hover tbody tr { cursor: pointer; transition: background-color 0.2s; }
-            .table-hover tbody tr:hover { background-color: #f8f9fa; }
-            .badge { font-size: 0.75rem; padding: 0.25rem 0.5rem; }
-            .filter-section { background: #fff; padding: 1rem; border-radius: 8px; margin-bottom: 1rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-            .action-btn { padding: 0.25rem 0.5rem; font-size: 0.875rem; }
             .pagination .page-link {
                 color: #003366;
             }
@@ -38,7 +33,7 @@
             }
         </style>
     </head>
-    <body style="background-color: var(--bg-light);">
+    <body>
         <div class="app-container">
             <?php include('../../components/header.php'); ?>
 
@@ -56,7 +51,7 @@
                             </ol>
                         </nav>
 
-                        <div class="row mb-2">
+                        <div class="row mb-4">
                             <div class="col">
                                 <h2 class="fw-bold">Articles</h2>
                                 <p>Article, news, and updates compilation of Quezon City projects</p>
@@ -73,54 +68,50 @@
                         <?php endif; ?>
 
                         <!-- Filter Section -->
-                        <div class="filter-section">
-                            <form method="GET" action="" id="filterForm">
-                                <div class="row g-3 align-items-end">
-                                    <div class="col-md-3">
-                                        <label class="form-label small mb-1">Search</label>
-                                        <input type="text" class="form-control form-control-sm" name="search" placeholder="Title or Description..." value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-body">
+                                <form method="GET" class="row g-3">
+                                    <div class="col-lg-4">
+                                        <label class="form-label fw-bold text-muted">Search</label>
+                                        <input type="text" class="form-control" name="search" placeholder="Title or Description..." value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
                                     </div>
-                                    <div class="col-md-2">
-                                        <label class="form-label small mb-1">Status</label>
-                                        <select class="form-select form-select-sm" name="status">
+                                    <div class="col-lg-2">
+                                        <label class="form-label fw-bold text-muted">Status</label>
+                                        <select class="form-select" name="status">
                                             <option value="">All Status</option>
                                             <option value="Published" <?= ($_GET['status'] ?? '') === 'Published' ? 'selected' : '' ?>>Published</option>
                                             <option value="Draft" <?= ($_GET['status'] ?? '') === 'Draft' ? 'selected' : '' ?>>Draft</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-2">
-                                        <label class="form-label small mb-1">Type</label>
-                                        <select class="form-select form-select-sm" name="type">
+                                    <div class="col-lg-2">
+                                        <label class="form-label fw-bold text-muted">Type</label>
+                                        <select class="form-select" name="type">
                                             <option value="">All Types</option>
                                             <option value="News" <?= ($_GET['type'] ?? '') === 'News' ? 'selected' : '' ?>>News</option>
                                             <option value="Update" <?= ($_GET['type'] ?? '') === 'Update' ? 'selected' : '' ?>>Update</option>
                                             <option value="Announcement" <?= ($_GET['type'] ?? '') === 'Announcement' ? 'selected' : '' ?>>Announcement</option>
                                         </select>
                                     </div>
-                                    <div class="col-md-3">
-                                        <label class="form-label small mb-1">Barangay</label>
-                                        <input type="text" class="form-control form-control-sm" name="barangay" placeholder="Barangay name..." value="<?= htmlspecialchars($_GET['barangay'] ?? '') ?>">
+                                    <div class="col-lg-2">
+                                        <label class="form-label fw-bold text-muted">Barangay</label>
+                                        <input type="text" class="form-control" name="barangay" placeholder="Barangay name..." value="<?= htmlspecialchars($_GET['barangay'] ?? '') ?>">
                                     </div>
-                                    <div class="col-md-2">
-                                        <button type="submit" class="btn btn-sm btn-primary w-100"><i class="bi bi-funnel"></i> Filter</button>
-                                        <a href="<?= $_SERVER['PHP_SELF'] ?>" class="btn btn-sm btn-outline-secondary w-100 mt-1"><i class="bi bi-arrow-clockwise"></i> Reset</a>
+                                    <div class="col-lg-2 d-flex align-items-end gap-2">
+                                        <div class="col-6">
+                                            <button class="btn bg-color-primary text-light fw-medium w-100" type="submit">Apply</button>
+                                        </div>
+                                        <div class="col-6">
+                                            <a class="btn btn-outline-secondary w-100 fw-medium" href="<?= $_SERVER['PHP_SELF'] ?>">Reset</a>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
-                        </div>
-
-                        <div class="mb-3 d-flex justify-content-between align-items-center">
-                            <div>
-                                <span class="text-muted">Total: <?= $total_records ?> articles</span>
+                                </form>
                             </div>
-                            <a class="btn btn-primary btn-sm" href="/QTrace-Website/add-article"><i class="bi bi-plus-lg me-1"></i> Add Article</a>
                         </div>
 
                         <!-- Articles Table -->
-                        <section class="card border-0 shadow-sm mb-4">
-                            <div class="card-body p-0">
-                                <div class="table-responsive">
-                                    <table class="table table-hover align-middle mb-0">
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="table-responsive">
+                                <table class="table table-hover align-middle mb-0">
                                         <thead class="table-light">
                                             <tr>
                                                 <th class="px-3">ID</th>
@@ -157,7 +148,7 @@
                                                     $badgeClass = isset($statusBadges[$article['article_status']]) ? $statusBadges[$article['article_status']] : 'bg-secondary';
                                                 ?>
                                                 <tr onclick="window.location.href='/QTrace-Website/view-article?id=<?= $article['article_ID'] ?>';">
-                                                    <td class="px-3 fw-bold"><?= str_pad($article['article_ID'], 4, '0', STR_PAD_LEFT) ?></td>
+                                                    <td class="px-3 fw-bold">Art-<?= str_pad($article['article_ID'], 4, '0', STR_PAD_LEFT) ?></td>
                                                     <td>
                                                         <div class="fw-semibold"><?= htmlspecialchars($article['ProjectDetails_Title']) ?></div>
                                                         <small class="text-muted"><?= htmlspecialchars(substr($article['article_description'], 0, 60)) ?>...</small>
@@ -190,33 +181,35 @@
                                             <?php endif; ?>
                                         </tbody>
                                     </table>
-                                </div>
                             </div>
-                        </section>
+                        </div>
 
                         <!-- Pagination -->
-                        <?php if ($total_pages > 1): ?>
-                        <nav aria-label="Articles pagination">
-                            <ul class="pagination justify-content-end">
-                                <?php if ($page > 1): ?>
-                                    <li class="page-item">
-                                        <a class="page-link" href="?page=<?= $page - 1 ?><?= isset($_GET['search']) ? '&search=' . urlencode($_GET['search']) : '' ?><?= isset($_GET['status']) ? '&status=' . urlencode($_GET['status']) : '' ?><?= isset($_GET['type']) ? '&type=' . urlencode($_GET['type']) : '' ?><?= isset($_GET['barangay']) ? '&barangay=' . urlencode($_GET['barangay']) : '' ?>">Previous</a>
+                        <?php if (!empty($pagination) && $pagination['total_pages'] > 0): ?>
+                        <div class="d-flex justify-content-between align-items-center mt-4">
+                            <div>
+                                <small class="text-muted">
+                                    Showing 
+                                    <span><?php echo (($pagination['current_page'] - 1) * $pagination['per_page']) + 1; ?></span> 
+                                    to 
+                                    <span><?php echo min($pagination['current_page'] * $pagination['per_page'], $pagination['total_records']); ?></span> 
+                                    of 
+                                    <span><?php echo $pagination['total_records']; ?></span> 
+                                    articles
+                                </small>
+                            </div>
+                            <nav>
+                                <ul class="pagination mb-0">
+                                    <li class="page-item <?php echo $pagination['current_page'] === 1 ? 'disabled' : ''; ?>">
+                                        <a class="page-link" href="?page=<?php echo max(1, $pagination['current_page'] - 1); ?>&search=<?php echo urlencode($_GET['search'] ?? ''); ?>&status=<?php echo urlencode($_GET['status'] ?? ''); ?>&type=<?php echo urlencode($_GET['type'] ?? ''); ?>&barangay=<?php echo urlencode($_GET['barangay'] ?? ''); ?>">Previous</a>
                                     </li>
-                                <?php endif; ?>
-
-                                <?php for ($i = 1; $i <= $total_pages; $i++): ?>
-                                    <li class="page-item <?= $i == $page ? 'active' : '' ?>">
-                                        <a class="page-link" href="?page=<?= $i ?><?= isset($_GET['search']) ? '&search=' . urlencode($_GET['search']) : '' ?><?= isset($_GET['status']) ? '&status=' . urlencode($_GET['status']) : '' ?><?= isset($_GET['type']) ? '&type=' . urlencode($_GET['type']) : '' ?><?= isset($_GET['barangay']) ? '&barangay=' . urlencode($_GET['barangay']) : '' ?>"><?= $i ?></a>
+                                    <li class="page-item"><span class="page-link"><?php echo $pagination['current_page']; ?> of <?php echo $pagination['total_pages']; ?></span></li>
+                                    <li class="page-item <?php echo $pagination['current_page'] === $pagination['total_pages'] ? 'disabled' : ''; ?>">
+                                        <a class="page-link" href="?page=<?php echo min($pagination['total_pages'], $pagination['current_page'] + 1); ?>&search=<?php echo urlencode($_GET['search'] ?? ''); ?>&status=<?php echo urlencode($_GET['status'] ?? ''); ?>&type=<?php echo urlencode($_GET['type'] ?? ''); ?>&barangay=<?php echo urlencode($_GET['barangay'] ?? ''); ?>">Next</a>
                                     </li>
-                                <?php endfor; ?>
-
-                                <?php if ($page < $total_pages): ?>
-                                    <li class="page-item">
-                                        <a class="page-link" href="?page=<?= $page + 1 ?><?= isset($_GET['search']) ? '&search=' . urlencode($_GET['search']) : '' ?><?= isset($_GET['status']) ? '&status=' . urlencode($_GET['status']) : '' ?><?= isset($_GET['type']) ? '&type=' . urlencode($_GET['type']) : '' ?><?= isset($_GET['barangay']) ? '&barangay=' . urlencode($_GET['barangay']) : '' ?>">Next</a>
-                                    </li>
-                                <?php endif; ?>
-                            </ul>
-                        </nav>
+                                </ul>
+                            </nav>
+                        </div>
                         <?php endif; ?>
                     </div>
                 </main>

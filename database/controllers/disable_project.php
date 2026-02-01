@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 // Database connection
 require('../connection/connection.php'); // Provides $conn (MySQLi)
 require_once('audit_service.php');
@@ -30,6 +32,7 @@ if (!$oldData) {
 $stmt = $conn->prepare("UPDATE projects_table SET Project_Status = 'inactive' WHERE Project_ID = ?");
 $stmt->bind_param("i", $project_id);
 $success = $stmt->execute();
+$stmt->close();
 
 if ($success) {
     // 3. LOG THE CHANGE
@@ -43,9 +46,17 @@ if ($success) {
         $oldData,          // Old values: {"Project_Status": "active"}
         ['Project_Status' => 'inactive'] // New values
     );
+    
+    // Ensure database changes are committed
+    if (!$conn->autocommit(true)) {
+        $conn->commit();
+    }
 }
 
+// Close connection before redirect
+$conn->close();
+
 $msg = urlencode("Project disabled successfully.");
-header("Location: /QTrace-Website/project-list?status=danger&msg=$msg");
+header("Location: /QTrace-Website/project-list?status=danger&msg=$msg"."&search=&status=&contractor_id=");
 exit();
 ?>

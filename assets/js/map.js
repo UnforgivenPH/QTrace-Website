@@ -71,7 +71,7 @@
 
         function openPopup(proj) {
             const budgetFormatted = new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP' }).format(proj.ProjectDetails_Budget);
-            const targetPath = (userRole === 'admin') 
+            const targetPath = (userRole === 'admin' || userRole === 'superadmin') 
                 ? '/QTrace-Website/view-project' 
                 : '/QTrace-Website/project-details';
             const content = `

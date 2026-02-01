@@ -128,13 +128,31 @@
                 </ul>
             </div>
         </li>
-
         
         <li class="nav-item">
-            <a href="/QTrace-Website/list-article" class="nav-link text-black <?php echo ($page_name == 'project_articles') ? 'active' : ''; ?>">
-                <i class="bi bi-card-text"></i> Articles
+            <a class="nav-link text-black d-flex justify-content-between align-items-center <?php echo ($page_name == 'ongoing') ? '' : 'collapsed'; ?>" 
+            data-bs-toggle="collapse" href="#submenu4" 
+            aria-expanded="<?php echo ($page_name == 'ongoing') ? 'true' : 'false'; ?>">
+                <span><i class="bi bi-card-text"></i> Articles</span>
+                <i class="bi bi-chevron-down small"></i>
             </a>
+            
+            <div class="collapse <?php echo in_array($page_name, ['articleList', 'addArticle']) ? 'show' : ''; ?>" id="submenu4">
+                <ul class="nav nav-pills flex-column ms-3 mt-1">
+                    <li class="nav-item">
+                        <a class="nav-link text-black <?php echo ($page_name == 'articleList') ? 'active' : 'text-black-50'; ?>" href="/QTrace-Website/list-article">
+                            Articles List
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-black <?php echo ($page_name == 'addArticle') ? 'active' : 'text-black-50'; ?>" href="/QTrace-Website/add-article">
+                            Add Articles
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </li>
+
         <li class="nav-item">
             <a href="/QTrace-Website/audit-list" class="nav-link text-black <?php echo ($page_name == 'audit') ? 'active' : ''; ?>">
                 <i class="bi bi-archive"></i> Audit Logs

@@ -216,6 +216,20 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row p-2">
+                                    <div class="col-md-12">
+                                        <?php if ($contractor['Contractor_Status'] == 'active'): ?>
+                                            <button type="button" class="btn btn-outline-danger btn-sm w-100 p-2" onclick="confirmDisable(<?= $contractor['Contractor_Id'] ?>)" title="Disable Account">
+                                                <i class="bi bi-person-x me-2"></i> Disable Contractor
+                                            </button>
+
+                                        <?php else: ?>
+                                            <button type="button" class="btn btn-outline-success btn-sm w-100 p-2" onclick="confirmActive(<?= $contractor['Contractor_Id'] ?>)" title="Activate Account">
+                                                <i class="bi bi-person-check me-2"></i> Activate Contractor
+                                            </button>
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -225,7 +239,16 @@
 
         <!-- Custome Script For This Page Only  --> 
         <script>
-
+        function confirmDisable(id) {
+            if(confirm("Are you sure you want to disable this contractor? They will be hidden from listings.")) {
+                window.location.href = "/QTrace-Website/database/controllers/disable_contractor.php?id=" + id;
+            }
+        }
+        function confirmActive(id) {
+            if(confirm("Are you sure you want to activate this contractor? They will be visible in listings.")) {
+                window.location.href = "/QTrace-Website/database/controllers/activate_contractor.php?id=" + id;
+            }
+        }
         </script>
          
         <!-- Reusable Script -->
